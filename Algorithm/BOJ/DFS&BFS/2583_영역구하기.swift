@@ -7,68 +7,98 @@
 
 //import Foundation
 //
-//let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-//let m = input[0], n = input[1], k = input [2]
+////// Queue
+//struct Queue<T> {
+//    var data = [T]()
+//    var index = 0
 //
-//var arr: [[Int]] = Array(repeating: Array(repeating: 0, count: n), count: m)
+//    var isEmpty: Bool {
+//        return !(data.count > index)
+//    }
 //
-//// 빗금 구간 1로 setting
-//for _ in 0..<k {
-//    let rect: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-//    let y1 = rect[0], x1 = rect[1], y2 = rect[2], x2 = rect[3]
+//    mutating func enqueue(_ element: T) {
+//        data.append(element)
+//    }
 //
-//    for i in x1..<x1+(x2-x1) {
-//        for j in y1..<y1+(y2-y1) {
-//            if arr[i][j] != 1 {
-//                arr[i][j] = 1
-//            }
+//    mutating func dequeue() -> T {
+//        defer {
+//            index += 1
 //        }
+//        return data[index]
 //    }
 //}
 //
-//var countArr: [Int] = []
+//// input
+//let nlr = readLine()!.split(separator: " ").map {Int(String($0))!}
+//let n = nlr[0], l = nlr[1], r = nlr[2]
 //
+//var list = [[Int]]()
+//for _ in 0..<n {
+//    let arr: [Int] = readLine()!.split(separator: " ").map {Int(String($0))!}
+//    list.append(arr)
+//}
+//
+//var visited = Array(repeating: Array(repeating: false, count: n), count: n)
 //let dx = [1, -1, 0, 0]
 //let dy = [0, 0, 1, -1]
 //
+//func bfs(x: Int, y: Int) -> Bool {
+//    var queue: Queue<[Int]> = Queue()
+//    queue.enqueue([x, y])
+//    visited[x][y] = true
 //
-//// 흑흑 전역변수 dfs 에서 count셀때 많이 씀!!! 기억주의!!!!!! ***
-//// code refectoring ver.
-//func dfs(x: Int, y: Int) -> Int {
-//    var area = 1
+//    var sum: Int = list[x][y]
+//    var union: [[Int]] = [[x,y]]
 //
-//    for i in 0..<4 {
-//        let dx = x + dx[i]
-//        let dy = y + dy[i]
-//        // 제어문 **
-//        if  (dx>=0 && dy>=0 && dx<m && dy<n) && (arr[dx][dy] != 1) {
-//            arr[dx][dy] = 1
-//            area += dfs(x: dx, y: dy)
+//    while !queue.isEmpty {
+//        let now = queue.dequeue()
+//        let x = now[0]
+//        let y = now[1]
+//
+//        for i in 0..<4 {
+//            let nx = x + dx[i]
+//            let ny = y + dy[i]
+//
+//            if (nx>=0&&ny>=0&&nx<n&&ny<n) &&  (l<=abs(list[x][y] - list[nx][ny])&&r>=abs(list[x][y] - list[nx][ny])) {
+//                if !visited[nx][ny] {
+//                    queue.enqueue([nx, ny])
+//                    visited[nx][ny] = true
+//                    sum+=list[nx][ny]
+//                    union.append([nx, ny])
+//                }
+//            }
 //        }
 //    }
-//    return area
-//}
 //
-//var areaCount = 0
-//for i in 0..<m {
-//    for j in 0..<n {
-//        if arr[i][j] != 1 {
-//            arr[i][j] = 1
-//            countArr.append(dfs(x: i, y: j))
-//            areaCount += 1
+//    if union.count > 1 {
+//        let avg: Int = Int(sum / union.count)
+//        for i in union {
+//            list[i[0]][i[1]] = avg
 //        }
+//        return true
+//    } else {
+//        return false
 //    }
 //}
 //
-//countArr.sort()
-//print(areaCount)
-//for i in countArr {
-//    print(i, terminator: " ")
+//var rotation: Int = 0
+//
+//while true {
+//    var ismove = false
+//    for i in 0..<n {
+//        for j in 0..<n {
+//            if !visited[i][j] && bfs(x: i, y: j) == true {
+//                ismove = true
+//            }
+//        }
+//    }
+//    if ismove == false {
+//        break
+//    }
+//    rotation += 1
+//    visited = Array(repeating: Array(repeating: false, count: n) , count: n)
 //}
 //
-//
-//
-//
-//
-//
+//print(rotation)
+
 

@@ -61,7 +61,6 @@
 //
 //            if (nx>=0&&ny>=0&&nx<n&&ny<n) &&  (l<=abs(list[x][y] - list[nx][ny])&&r>=abs(list[x][y] - list[nx][ny])) {
 //                if !visited[nx][ny] {
-//                    // enqueue -> visited check **
 //                    queue.enqueue([nx, ny])
 //                    visited[nx][ny] = true
 //                    count+=list[nx][ny]
@@ -83,12 +82,8 @@
 //}
 //
 //var rotation: Int = 0
-//var isRotation = true
 //
-//
-//// 배열탐색후 인구이동이 있다?
-//// 다시 처음부터 배열탐색
-//while isRotation {
+//while true {
 //    var ismove = false
 //    for i in 0..<n {
 //        for j in 0..<n {
@@ -97,13 +92,12 @@
 //            }
 //        }
 //    }
-//    isRotation = ismove
+//    if ismove == false {
+//        break
+//    }
 //    rotation += 1
 //    visited = Array(repeating: Array(repeating: false, count: n) , count: n)
 //}
 //
-//print(rotation-1)
+//print(rotation)
 //
-//
-
-

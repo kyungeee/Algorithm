@@ -7,101 +7,41 @@
 
 import Foundation
 
-//// Queue
-struct Queue<T> {
-    var data = [T]()
-    var index = 0
+let LC: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
+let L = LC[0], C = LC[1]
+var alphabet: [String] = readLine()!.split(separator: " ").map { String($0) }
+alphabet.sort()
 
-    var isEmpty: Bool {
-        return !(data.count > index)
-    }
+var output = [String]()
+var visited = Array(repeating: false, count: C)
+var collection: [String] = ["a","e","i","o","u"]
 
-    mutating func enqueue(_ element: T) {
-        data.append(element)
-    }
-
-    mutating func dequeue() -> T {
-        defer {
-            index += 1
-        }
-        return data[index]
-    }
-}
-
-// input
-let nlr = readLine()!.split(separator: " ").map {Int(String($0))!}
-let n = nlr[0], l = nlr[1], r = nlr[2]
-
-var list = [[Int]]()
-for _ in 0..<n {
-    let arr: [Int] = readLine()!.split(separator: " ").map {Int(String($0))!}
-    list.append(arr)
-}
-
-var visited = Array(repeating: Array(repeating: false, count: n), count: n)
-let dx = [1, -1, 0, 0]
-let dy = [0, 0, 1, -1]
-
-func bfs(x: Int, y: Int) -> Bool {
-    var queue: Queue<[Int]> = Queue()
-    queue.enqueue([x, y])
-    visited[x][y] = true
-    
-    var count: Int = list[x][y]
-    var union: [[Int]] = [[x,y]]
-    
-    while !queue.isEmpty {
-        let now = queue.dequeue()
-        let x = now[0]
-        let y = now[1]
-        
-        for i in 0..<4 {
-            let nx = x + dx[i]
-            let ny = y + dy[i]
-            
-            if (nx>=0&&ny>=0&&nx<n&&ny<n) &&  (l<=abs(list[x][y] - list[nx][ny])&&r>=abs(list[x][y] - list[nx][ny])) {
-                if !visited[nx][ny] {
-                    queue.enqueue([nx, ny])
-                    visited[nx][ny] = true
-                    count+=list[nx][ny]
-                    union.append([nx, ny])
-                }
+func recur(now: Int, depth: Int) {
+    if depth == L {
+        var count: Int = 0
+        for i in 0..<collection.count {
+            if output.contains(collection[i]) {
+                count += 1
             }
         }
+        if (count >= 1) && (L-count >= 2) {
+            for i in output {
+                print(i, terminator: "")
+            }
+            print("")
+        }
     }
     
-    if union.count > 1 {
-        let avg: Int = Int(count / union.count)
-        for i in union {
-            list[i[0]][i[1]] = avg
+    for i in now..<C {
+        if !visited[i] {
+            visited[i] = true
+            output.append(alphabet[i])
+            recur(now: i, depth: depth+1)
+            visited[i] = false
+            output.removeLast()
         }
-        return true
-    } else {
-        return false
     }
 }
 
-var rotation: Int = 0
-var isRotation = true
-
-while isRotation {
-    var ismove = false
-    for i in 0..<n {
-        for j in 0..<n {
-            if !visited[i][j] && bfs(x: i, y: j) == true {
-                ismove = true
-            }
-        }
-    }
-    isRotation = ismove
-    rotation += 1
-    visited = Array(repeating: Array(repeating: false, count: n) , count: n)
-}
-
-print(rotation-1)
-
-
-
-
-
+recur(now: 0, depth: 0)
 
