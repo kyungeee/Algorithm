@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061510F92929420E0046A13C /* 13023_ABCDE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061510F82929420E0046A13C /* 13023_ABCDE.swift */; };
 		06365E80291CB7D000CF1D3C /* 2293_동전1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06365E7F291CB7D000CF1D3C /* 2293_동전1.swift */; };
 		06B527EE29195E7300ACFB0D /* 1759_암호만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B527ED29195E7300ACFB0D /* 1759_암호만들기.swift */; };
 		06EB47122917CA8A009804E1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47112917CA8A009804E1 /* main.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		061510F82929420E0046A13C /* 13023_ABCDE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 13023_ABCDE.swift; sourceTree = "<group>"; };
 		06365E78291CB76600CF1D3C /* DP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DP; sourceTree = BUILT_PRODUCTS_DIR; };
 		06365E7F291CB7D000CF1D3C /* 2293_동전1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2293_동전1.swift"; sourceTree = "<group>"; };
 		06B527E629195DED00ACFB0D /* Backtracking */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Backtracking; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +177,7 @@
 				06EB47422917CCCD009804E1 /* 7569_토마토.swift */,
 				06EB47442917D24D009804E1 /* 2178_미로탐색.swift */,
 				06EB47482917FE42009804E1 /* 16234_인구이동.swift */,
+				061510F82929420E0046A13C /* 13023_ABCDE.swift */,
 			);
 			path = "DFS&BFS";
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				06EB47412917CCA2009804E1 /* 10026_적록색약.swift in Sources */,
 				06EB47452917D24D009804E1 /* 2178_미로탐색.swift in Sources */,
 				06EB473F2917CC8B009804E1 /* 2583_영역구하기.swift in Sources */,
+				061510F92929420E0046A13C /* 13023_ABCDE.swift in Sources */,
 				06EB47492917FE42009804E1 /* 16234_인구이동.swift in Sources */,
 				06EB47432917CCCD009804E1 /* 7569_토마토.swift in Sources */,
 			);

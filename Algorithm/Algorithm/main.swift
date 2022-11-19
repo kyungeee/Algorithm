@@ -5,61 +5,59 @@
 //  Created by 박희경 on 2022/11/06.
 //
 
-// 시간초과: 0.5s -> 완탐으로 풀면 maybe 시초
 import Foundation
 
-// input
-let nk = readLine()!.split(separator: " ").map { Int(String($0))! }
-let n = nk[0], k = nk[1]
 
-var warr = [Int]()
-for _ in 0..<n {
-    let w = Int(readLine()!)!
-    warr.append(w)
+let input = readLine()!.split(separator: " ").map { Int(String($0))! }
+let n = input[0], m = input[1]
+
+var list: [[Int]] = Array(repeating: [], count: n)
+for _ in 0..<m {
+    let arr: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
+    list[arr[0]].append(arr[1])
+    list[arr[1]].append(arr[0])
 }
 
-// 완탐 vs DP(ex. 피보나치) ?
-// DP도 재귀로 돌리는디 배열에 메모를 한다. memorization!
-// 하향식 -> 재귀적으로 내려가는것, 상향식-> for문으로 처음 1부터 올라가면서 하는것을 상향식
-var mem: [Int] = Array(repeating: 0, count: k+1) // ** dp memorization array
-
-// 상향식(for)
-func dp2(k: Int) {
-    /// 점화식
-    /// for j in warr
-    mem[0] = 1
-    for i in warr {
-        for j in 1..<mem.count {
-            if j-i >= 0 {
-                mem[j] += mem[j-i]
+var visited = Array(repeating: false, count: n)
+var check: Bool = false
+func dfs(now: Int, depth: Int) {
+    // 시간복잡도 -> 4에서 lock 해주기 때문에 가능
+    if check {
+        return
+    }
+    
+    if depth == 4 {
+        check = true
+        return
+    }
+    
+    for i in 0..<list[now].count {
+        let next = list[now][i]
+        if !visited[next] {
+            visited[next] = true
+//            print("next: \(next), depth: \(depth)")
+            dfs(now: next, depth: depth+1)
+            if check {
+                return
             }
+            visited[next] = false // *** 모든 경우의 수 탐색
         }
     }
 }
 
-// 하향식(재귀) -> 시간초과
-//func dp(k: Int, index: Int) -> Int {
-//    var sum: Int = 0
-//
-//    if mem[k] > 0 {
-//        return mem[k]
-//    }
-//    if k == 0 {
-//        return 1 // 경우의수 return
-//    }
-//    if index == n {
-//        return 0 // 이제 끝!났다. return 해라
-//    }
-//    for i in 0..<k/warr[index]+1 {
-//        sum += dp(k: k - i * warr[index], index: index+1)
-//    }
-//
-//    mem[k] = sum
-//    return sum
-//}
+// 첫 시작지를 0으로 지정한것 x
+// 따라서 모든 노드들을 첫 시작점으로 다 돌려봐야함. 모든 케이스들을 테스트
+for i in 0..<n {
+    visited[i] = true
+    dfs(now: i, depth: 0)
+    if check {
+        break
+    }
+    visited = Array(repeating: false, count: n)
+}
 
-
-
-//print(dp(k: k, index: 0))
-dp2(k: k)
-print(mem[k])
+if check {
+    print(1)
+} else {
+    print(0)
+}
