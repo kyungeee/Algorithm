@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		061510F92929420E0046A13C /* 13023_ABCDE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061510F82929420E0046A13C /* 13023_ABCDE.swift */; };
+		061510FB292A86380046A13C /* 2293_제곱수의합.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061510FA292A86380046A13C /* 2293_제곱수의합.swift */; };
 		06365E80291CB7D000CF1D3C /* 2293_동전1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06365E7F291CB7D000CF1D3C /* 2293_동전1.swift */; };
 		06B527EE29195E7300ACFB0D /* 1759_암호만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B527ED29195E7300ACFB0D /* 1759_암호만들기.swift */; };
 		06EB47122917CA8A009804E1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47112917CA8A009804E1 /* main.swift */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		061510F82929420E0046A13C /* 13023_ABCDE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 13023_ABCDE.swift; sourceTree = "<group>"; };
+		061510FA292A86380046A13C /* 2293_제곱수의합.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2293_제곱수의합.swift"; sourceTree = "<group>"; };
 		06365E78291CB76600CF1D3C /* DP */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DP; sourceTree = BUILT_PRODUCTS_DIR; };
 		06365E7F291CB7D000CF1D3C /* 2293_동전1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2293_동전1.swift"; sourceTree = "<group>"; };
 		06B527E629195DED00ACFB0D /* Backtracking */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Backtracking; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				06365E7F291CB7D000CF1D3C /* 2293_동전1.swift */,
+				061510FA292A86380046A13C /* 2293_제곱수의합.swift */,
 			);
 			path = DP;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06365E80291CB7D000CF1D3C /* 2293_동전1.swift in Sources */,
+				061510FB292A86380046A13C /* 2293_제곱수의합.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
