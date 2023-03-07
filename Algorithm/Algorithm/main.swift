@@ -8,69 +8,40 @@
 
 import Foundation
 
-// swift 문자열의 n번째 이후 모든글자 가져오기
-//let s = "12:00:00AM"
-//let timeIndex = s.index(s.startIndex, offsetBy: 7)
-//let timeStr = String(s[...timeIndex]) // 12:00:00
-//let ampmIndex = s.index(s.endIndex, offsetBy: -2)
-//let ampmStr = String(s[ampmIndex...]) // AM
-//
-//
-//// 또는 아래와 같이 구할 수도 있다
-//let timeStr2 = s.prefix(8) // 12:00:00
-//let ampmStr2 = s.suffix(2) // AM
-var minvalue = 10000000
-var input = ""
+// vertex, edge
+let n = Int(readLine()!)!
+let m = Int(readLine()!)!
 
-func comp(n: Int) -> Int {
-    var startIndex = input.startIndex
-    var endIndex = input.index(startIndex, offsetBy: n-1)
-    var temp = String(input[startIndex...endIndex])
-    var count: Int = 1
-    var output : String = ""
+// 인접 리스트
+var list: [[Int]] = Array(repeating: [], count: n+1)
+// 방문 리스트
+var visited: [Bool] = Array(repeating: false, count: n+1)
 
-    var index = n
-    while index < input.count {
-        startIndex = input.index(endIndex, offsetBy: 1)
-        if index + n > input.count {
-            break
-        }
-        endIndex = input.index(startIndex, offsetBy: n-1)
-        let split = String(input[startIndex...endIndex])
-        if temp == split {
-            count += 1
-        } else {
-            if count > 1 {
-                output += "\(count)"
-            }
-            output += temp
+// virus 감염 수
+var virus: Int = 0
 
-            count = 1
-            temp = split
-        }
-        index += n // 6 -> 8
-    }
-
-    if count > 1 {
-        output += "\(count)"
-    }
-    output += temp
-
-    endIndex = input.index(endIndex, offsetBy: 1)
-    let remain = String(input[endIndex...])
-    output += remain
-
-    return output.count
+for _ in 1...m {
+    let edge: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
+    list[edge[0]].append(edge[1])
+    list[edge[1]].append(edge[0])
 }
 
 
-func solution(_ s: String) -> Int {
-    input = s
-    for i in 1...s.count {
-        let result = comp(n: i)
-        minvalue = min(minvalue, result)
+// dfs func
+func dfs(_ start: Int) {
+    visited[start] = true
+    for i in 0..<list[start].count {
+        let next = list[start][i]
+        if !visited[next] {
+            visited[next] = true
+            virus += 1
+            dfs(next)
+        }
     }
-
-    return minvalue
 }
 
+
+
+// print
+dfs(1)
+print(virus)
