@@ -8,40 +8,56 @@
 
 import Foundation
 
-// vertex, edge
-let n = Int(readLine()!)!
-let m = Int(readLine()!)!
+let t = Int(readLine()!)!
 
-// 인접 리스트
-var list: [[Int]] = Array(repeating: [], count: n+1)
-// 방문 리스트
-var visited: [Bool] = Array(repeating: false, count: n+1)
+for _ in 1...t {
+    let mnk: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
 
-// virus 감염 수
-var virus: Int = 0
+    let m = mnk[0], n = mnk[1], k = mnk[2]
 
-for _ in 1...m {
-    let edge: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
-    list[edge[0]].append(edge[1])
-    list[edge[1]].append(edge[0])
-}
+    var data: [[Int]] = Array(repeating: Array(repeating: 0, count: m), count: n)
+
+    for _ in 1...k {
+        let veg = readLine()!.split(separator: " ").map {Int(String($0))!}
+        
+        let x = veg[0]
+        let y = veg[1]
+        
+        data[y][x] = 1
+    }
+
+    func dfs(x: Int, y: Int) -> Bool {
+        if (x<0 || x>=n || y<0 ||  y>=m ) {
+            return false
+        }
+        
+        if data[x][y] == 1 {
+            data[x][y] = 0
+            dfs(x: x+1, y: y)
+            dfs(x: x-1, y: y)
+            dfs(x: x, y: y+1)
+            dfs(x: x, y: y-1)
+            return true
+        }
+        
+        return false
+    }
 
 
-// dfs func
-func dfs(_ start: Int) {
-    visited[start] = true
-    for i in 0..<list[start].count {
-        let next = list[start][i]
-        if !visited[next] {
-            visited[next] = true
-            virus += 1
-            dfs(next)
+    var jirung: Int = 0
+
+    for i in 0...n-1 {
+        for j in 0...m-1 {
+            if dfs(x: i, y: j) {
+                jirung += 1
+            }
         }
     }
+
+    print(jirung )
+
 }
 
 
 
-// print
-dfs(1)
-print(virus)
+
