@@ -16,38 +16,39 @@
 // 결과값 저장 [Int]
 // 방문여부 체크 [Bool]
 
-import Foundation
-
-let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
-
-let n = input[0]
-let m = input[1]
-
-var output: [Int] = []
-var visited: [Bool] = Array(repeating: false, count: n+1)
-
-
-func recur(_ num: Int) {
-    if num == m {
-        for i in output {
-            print("\(i)", terminator: " ")
-        }
-        print("")
-        return
-    }
-    
-    for i in 1...n {
-        if visited[i] == false {
-            visited[i] = true
-            output.append(i)
-            recur(num+1)
-            visited[i] = false
-            output.removeLast()
-        }
-    }
-}
-
-recur(0)
+//import Foundation
+//
+//let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
+//
+//let n = input[0]
+//let m = input[1]
+//
+//var output: [Int] = []
+//var visited: [Bool] = Array(repeating: false, count: n+1)
+//
+//
+//func recur(_ num: Int) {
+//    if num == m {
+//        for i in output {
+//            print("\(i)", terminator: " ")
+//        }
+//        print("")
+//        return
+//    }
+//
+//    for i in 1...n {
+//        if visited[i] == false {
+//            visited[i] = true
+//            output.append(i)
+//            recur(num+1)
+//            visited[i] = false
+//            output.removeLast()
+//        }
+//    }
+//}
+//
+//
+//recur(0)
 
 
 
