@@ -1,10 +1,9 @@
 //
-//  main.swift
-//  Algorithm
+//  15649_N과M(1).swift
+//  DFS&BFS
 //
-//  Created by 박희경 on 2022/11/06.
+//  Created by 박희경 on 2023/03/09.
 //
-
 
 // 1. 아이디어
 // - 백트래킹 재귀함수 안에서, for 돌면서 숫자 선택(이때 방문여부 확인)
@@ -49,6 +48,7 @@ func recur(_ num: Int) {
 }
 
 recur(0)
+
 
 
 
