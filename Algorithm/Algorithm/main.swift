@@ -6,53 +6,60 @@
 //
 
 
-// 1. 아이디어
-// - 백트래킹 재귀함수 안에서, for 돌면서 숫자 선택(이때 방문여부 확인)
-// - 재귀함수에서 M개를 선택할 경우 print
-
-// 2. 시간복잡도
-// - N! > 가능
-
-// 자료구조
-// 결과값 저장 [Int]
-// 방문여부 체크 [Bool]
-
 import Foundation
 
-let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))!}
+// 입력
+let n = Int(readLine()!)!
+let teamNumber = Int(n/2)
 
-let n = input[0]
-let m = input[1]
+// 능력치 저장 이차원 배열
+var power: [[Int]] = Array(repeating: [], count: n)
+for i in 0..<n {
+    power[i] = readLine()!.split(separator: " ").map({ Int(String($0))! })
+}
 
-var output: [Int] = []
-var visited: [Bool] = Array(repeating: false, count: n+1)
+// 방문 체크 배열
+var visited = Array(repeating: false, count: n)
 
 
-func recur(_ num: Int) {
-    if num == m {
-        for i in output {
-            print("\(i)", terminator: " ")
+// output
+var output = Int.max
+
+
+func dfs(_ depth: Int, _ index: Int) {
+    // 1. team 을 짠다! n/2 만큼 인원수로 !
+    // 2. 인원수가 n/2인 경우 팀능력치 계산 후
+    // 3. min 값 계산
+    // 4. visited 확인
+    
+    if depth == teamNumber {
+        var score1: Int = 0
+        var score2: Int = 0
+        for i in 0..<n {
+            for j in 0..<n {
+                if visited[i] && visited[j] {
+                    score1 += power[i][j]
+                } else if !visited[i] && !visited[j] {
+                    score2 += power[i][j]
+                }
+            }
         }
-        print("")
+        output = min(abs(score1 - score2), output)
         return
     }
     
-    for i in 1...n {
-        if visited[i] == false {
+    for i in index..<n {
+        if !visited[i] {
             visited[i] = true
-            output.append(i)
-            recur(num+1)
+            dfs(depth + 1, i)
             visited[i] = false
-            output.removeLast()
         }
     }
 }
 
-recur(0)
 
-
-
-
+dfs(0, 0)
+print(output)
 
 
 
