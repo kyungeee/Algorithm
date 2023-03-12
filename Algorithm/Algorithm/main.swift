@@ -8,59 +8,31 @@
 
 import Foundation
 
-// 입력
-let n = Int(readLine()!)!
-let teamNumber = Int(n/2)
+let n: Int = Int(readLine()!)!
+var list: [[Int]] = Array(repeating: [], count: n+1)
+var visited: [Bool] = Array(repeating: false, count: n+1)
+var parent: [Int] = Array(repeating: 0, count: n+1)
 
-// 능력치 저장 이차원 배열
-var power: [[Int]] = Array(repeating: [], count: n)
-for i in 0..<n {
-    power[i] = readLine()!.split(separator: " ").map({ Int(String($0))! })
+for _ in 0..<n-1 {
+    let v: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
+    list[v[0]].append(v[1])
+    list[v[1]].append(v[0])
 }
 
-// 방문 체크 배열
-var visited = Array(repeating: false, count: n)
-
-
-// output
-var output = Int.max
-
-
-func dfs(_ depth: Int, _ index: Int) {
-    // 1. team 을 짠다! n/2 만큼 인원수로 !
-    // 2. 인원수가 n/2인 경우 팀능력치 계산 후
-    // 3. min 값 계산
-    // 4. visited 확인
+func dfs(v: Int) {
+    visited[v] = true
     
-    if depth == teamNumber {
-        var score1: Int = 0
-        var score2: Int = 0
-        for i in 0..<n {
-            for j in 0..<n {
-                if visited[i] && visited[j] {
-                    score1 += power[i][j]
-                } else if !visited[i] && !visited[j] {
-                    score2 += power[i][j]
-                }
-            }
-        }
-        output = min(abs(score1 - score2), output)
-        return
-    }
-    
-    for i in index..<n {
+    for i in list[v] {
         if !visited[i] {
-            visited[i] = true
-            dfs(depth + 1, i)
-            visited[i] = false
+            parent[i] = v
+            dfs(v: i)
         }
     }
 }
 
 
-dfs(0, 0)
-print(output)
+dfs(v: 1)
 
-
-
-
+for i in 2...n {
+    print(parent[i])
+}
