@@ -5,34 +5,86 @@
 //  Created by 박희경 on 2022/11/06.
 //
 
+//// Queue
+struct Queue<T> {
+    var data = [T]()
+    var index = 0
 
-import Foundation
+    var isEmpty: Bool {
+        return !(data.count > index)
+    }
 
-let n: Int = Int(readLine()!)!
-var list: [[Int]] = Array(repeating: [], count: n+1)
-var visited: [Bool] = Array(repeating: false, count: n+1)
-var parent: [Int] = Array(repeating: 0, count: n+1)
+    mutating func enqueue(_ element: T) {
+        data.append(element)
+    }
 
-for _ in 0..<n-1 {
-    let v: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-    list[v[0]].append(v[1])
-    list[v[1]].append(v[0])
+    mutating func dequeue() -> T {
+        defer {
+            index += 1
+        }
+        return data[index]
+    }
 }
 
-func dfs(v: Int) {
-    visited[v] = true
+let n = Int(readLine()!)! // n x n
+
+var arr: [[Int]] = []
+
+for _ in 0..<n {
+    arr.append(readLine()!.map({ Int(String($0))! }))
+}
+
+var home = [Int]()
+
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
+
+func bfs(x: Int, y: Int){
     
-    for i in list[v] {
-        if !visited[i] {
-            parent[i] = v
-            dfs(v: i)
+    var queue = Queue<[Int]>()
+    queue.enqueue([x, y])
+    var num = 1
+    
+    while !queue.isEmpty {
+        let now = queue.dequeue()
+        let x = now[0]
+        let y = now[1]
+        
+        for i in 0...3 {
+            let nx = x + dx[i]
+            let ny = y + dy[i]
+            
+            if nx<0 || ny<0 || nx>=n || ny >= n {
+                continue
+            }
+            
+            if arr[nx][ny] == 0 {
+                continue
+            }
+            
+            if arr[nx][ny] == 1 {
+                num += 1
+                queue.enqueue([nx, ny])
+                arr[nx][ny] = 0 // 방문처리
+            }
+        }
+    }
+    
+    if num >= 1 {
+        home.append(num)
+    }
+}
+
+for i in 0..<n {
+    for j in 0..<n {
+        if arr[i][j] == 1 {
+            arr[i][j] = 0
+            bfs(x: i, y: j)
         }
     }
 }
 
-
-dfs(v: 1)
-
-for i in 2...n {
-    print(parent[i])
+print(home.count)
+for i in home.sorted() {
+    print(i)
 }
