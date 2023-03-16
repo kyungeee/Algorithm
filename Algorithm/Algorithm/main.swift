@@ -36,10 +36,6 @@ for _ in 0..<m {
     arr.append(readLine()!.split(separator: " ").map { Int(String($0))! })
 }
 
-// 상하좌우
-let dx = [1, -1, 0, 0]
-let dy = [0, 0, 1, -1]
-
 
 // 방문체크
 var visited = Array(repeating: Array(repeating: false, count: m), count: n)
@@ -99,11 +95,15 @@ var visited = Array(repeating: Array(repeating: false, count: m), count: n)
 var case1: Int = 0
 var case2 : Int = 0
 
-func bfs2(goToGram: Bool, haveGram: Bool, start: [Int], count: Int) -> Int{
+
+// 상하좌우
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
+
+func bfs2(case: Int, start: [Int], count: Int) {
     var queue = Queue<[Int]>()
-    queue.enqueue([start[0], start[1]])
-    
-    var num  = count
+    queue.enqueue([start[0], start[1], count])
+    visited[start[0]][start[1]] = true
     // 1. 그램이 아닌 공주한테 가는 경우 + 그램을 갖고있지 않은경우 F F [0, 0]
     
     // 2. 그램으로 가는 경우 + 그램을 아직 가지고있지 않은경우 T F [0, 0]
@@ -113,36 +113,39 @@ func bfs2(goToGram: Bool, haveGram: Bool, start: [Int], count: Int) -> Int{
         let now = queue.dequeue()
         let x = now[0]
         let y = now[1]
+        let t = now[2]
+        print("x: \(x), y: \(y)")
         
-        if goToGram && arr[x][y] == 2 {
-            num += 1
-            print("+++++ bfs \(num)")
-            return bfs2(goToGram: false, haveGram: true, start: [x, y], count: num+1) // 3
-        } else {
-            if x == m-1 && y == n-1 {
-                return n+1
-            }
+//        if goToGram && arr[x][y] == 2 {
+//            num += 1
+//            print("+++++ bfs \(num)")
+//            return bfs2(goToGram: false, haveGram: true, start: [x, y], count: num) // 3
+//        } else {
+//            if x == m-1 && y == n-1 {
+//                return num
+//            }
+//        }
+        
+        if x == n-1 && y == m-1 {
+            print("t: \(t)")
         }
         
         for i in 0...3 {
             let nx = x + dx[i]
             let ny = y + dy[i]
+            let nt = t + 1
+            print("nx: \(nx), ny: \(ny)")
             
             if (nx>=0&&ny>=0&&nx<n&&ny<m) && (arr[nx][ny] == 0) {
                 if !visited[nx][ny] {
-                    queue.enqueue([nx, ny])
+                    queue.enqueue([nx, ny, nt])
                     visited[nx][ny] = true
                 }
             } // if
+            
         } // for
-        num += 1
-        print(num)
+      
     }
     
-    return num
 }
-
-let result = bfs2(goToGram: true, haveGram: false, start: [0, 0], count: 0)
-print(result)
-
 
