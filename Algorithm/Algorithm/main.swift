@@ -39,21 +39,16 @@ for _ in 0..<N {
 // 방문체크
 var visited = Array(repeating: Array(repeating: Array(repeating: false, count: 2), count: M), count: N)
 
-
-var case1: Int = 0
-var case2 : Int = 0
-
-// 1. 그람갖고 가는경우 -> 그람갖기전 후 isgram: bool
-// 2. 그람없이 가는경우 ->
-
 // 상하좌우
 let dx = [1, -1, 0, 0]
 let dy = [0, 0, 1, -1]
 
 
-// 0: 그람 x, 1: 그람 o
-func bfs2() {
+func bfs() {
     var queue = Queue<[Int]>()
+    
+    /// 1. 그람 획득하고 가는 케이스 & 2. 그람없이 가는 케이스  테스트하기 위해 gram 에 대한 index 추가
+    /// 0: 그람 x , 1: 그람 o
     queue.enqueue([0, 0, 0, 0]) // x, y, gram, t
     visited[0][0][0] = true // x, y, gram
     
@@ -64,42 +59,50 @@ func bfs2() {
         let gram = now[2]
         let t = now[3]
         
-        // Fail 되는 순간: 입력받은
-        
-        if x == N-1 && y == M-1 {
-                print("\(t)")
+        // arr[nx][ny] 에 도착하기 전 T가 초과된 경우.
+        if t>T {
+            print("Fail")
+            return
         }
         
-//        if goToGram && arr[x][y] == 2 {
-//            num += 1
-//            print("+++++ bfs \(num)")
-//            return bfs2(goToGram: false, haveGram: true, start: [x, y], count: num) // 3
-//        } else {
-//            if x == m-1 && y == n-1 {
-//                return num
-//            }
-//        }
-        
+        /// 케이스 1, 2 가 동시에 돌아가기 때문에 먼저 큐에서 꺼내진 케이스의 t 가 최단거리
         if x == N-1 && y == M-1 {
-            print("t: \(t)")
+            print("\(t)")
+            return
         }
         
         for i in 0...3 {
             let nx = x + dx[i]
             let ny = y + dy[i]
             let nt = t + 1
-            print("nx: \(nx), ny: \(ny)")
             
-//            if (nx>=0&&ny>=0&&nx<N&&ny<M) && (arr[nx][ny] == 0) {
-//                if !visited[nx][ny] {
-//                    queue.enqueue([nx, ny, nt])
-//                    visited[nx][ny] = true
-//                }
-//            } // if
-            
+            if nx>=0&&ny>=0&&nx<N&&ny<M {
+                // 그람을 갖고있을때
+                if (gram != 00) && (!visited[nx][ny][1]) {
+                    queue.enqueue([nx, ny, 1, nt])
+                    visited[nx][ny][1] = true
+                }
+                
+                // 그람을 갖고있지 않을때
+                else {
+                    if (arr[nx][ny] == 0) && (!visited[nx][ny][0]) {
+                        // 0일때만 방문표시
+                        queue.enqueue([nx, ny, 0, nt])
+                        visited[nx][ny][0] = true
+                    } else if (arr[nx][ny] == 2) && (!visited[nx][ny][0]) {
+                        // 그람 획득
+                        queue.enqueue([nx, ny, 1, nt])
+                        visited[nx][ny][1] = true
+                    }
+                }
+            }
         } // for
       
-    }
+    } // while
+    
+    // arr 탐색이 끝났는데 arr[n-1][m-1]에 도달하지 못한경우.
+    print("Fail")
     
 }
 
+bfs()
