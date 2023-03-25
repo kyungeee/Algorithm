@@ -1,10 +1,9 @@
 //
-//  main.swift
-//  Algorithm
+//  16918_봄버맨.swift
+//  DP
 //
-//  Created by 박희경 on 2022/11/06.
+//  Created by 박희경 on 2023/03/26.
 //
-
 
 let input = readLine()!.split(separator: " ").map { Int(String($0))! }
 
@@ -100,5 +99,6 @@ func printArr() {
 }
 
 printArr()
+
 
 
