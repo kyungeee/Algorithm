@@ -7,29 +7,37 @@
 
 import Foundation
 
-let x = Int(readLine()!)!
+// dp table 초기화
+var memo = Array(repeating: Array(repeating: 0, count: 30), count: 30)
 
-var d = Array(repeating: 0, count: 30000)
-
-
-// bottom up
-for i in 2..<x+1 {
+// 조합 함수 - bottom up
+func combination(n: Int, r: Int) {
     
-    d[i] = d[i-1] + 1
-    
-    if i % 2 == 0 {
-        d[i] = min(d[i], d[i/2] + 1)
+    for i in 1...n {
+        for j in 0...r {
+            if memo[i][j] != 0 {
+                continue
+            }
+            else if j == 0 || i == j {
+                memo[i][j] = 1
+            }
+            else {
+                memo[i][j] = memo[i-1][j-1] + memo[i-1][j]
+            }
+        }
     }
-    
-    if i % 3 == 0 {
-        d[i] = min(d[i], d[i/3] + 1)
-    }
-    
-    if i % 5 == 0{
-        d[i] = min(d[i], d[i/5] + 1)
-    }
-
 }
 
+let t = Int(readLine()!)!
 
-print(d[x])
+for _ in 0..<t {
+    let input = readLine()!.split(separator: " ").map {Int(String($0))!}
+    
+    let r = input[0]
+    let n = input[1]
+    
+    combination(n: n, r: r)
+    
+    print(memo[n][r])
+    
+}
