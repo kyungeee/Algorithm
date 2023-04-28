@@ -12,7 +12,7 @@
 //
 //// 조합 함수 - bottom up 방식
 //func combination(n: Int, r: Int) {
-//    
+//
 //    for i in 1...n {
 //        for j in 0...r {
 //            if memo[i][j] != 0 {
@@ -32,12 +32,12 @@
 //
 //for _ in 0..<t {
 //    let input = readLine()!.split(separator: " ").map {Int(String($0))!}
-//    
+//
 //    let r = input[0]
 //    let n = input[1]
 //    combination(n: n, r: r)
-//    
+//
 //    print(memo[n][r])
-//    
+//
 //}
 //
