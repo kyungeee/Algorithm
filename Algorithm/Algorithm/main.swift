@@ -7,26 +7,27 @@
 
 import Foundation
 
-let n = Int(readLine()!)!
+let t = Int(readLine()!)!
 
-var dp = [Int](repeating: 0, count: n+1)
+var dp = [Int](repeating: 0, count: 11)
 
+dp[1] = 1
+dp[2] = 2
+dp[3] = 4
 
-for i in 2..<n+1 {
-    dp[i] = dp[i-1] + 1
+// ex) n = 5
+// dp[4] 4를 만들수 있는 모든 경우의 수에 +1 한 것과 같음
+// dp[3] 3를 만들수 있는 모든 경우의 수에 +2 한 것과 같음
+// dp[2] 2를 만들수 있는 모든 경우의 수에 +3 한 것과 같음
+for _ in 0..<t {
+    let n = Int(readLine()!)!
     
-    if i % 3 == 0 {
-        dp[i] = min(dp[i], dp[i/3] + 1)
+    for i in 4...n {
+        dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
     }
     
-    if i % 2 == 0 {
-        dp[i] = min(dp[i], dp[i/2] + 1)
-    }
+    print(dp[n])
 }
-
-
-print(dp[n])
-
 
 
 
