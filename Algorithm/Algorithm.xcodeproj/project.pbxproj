@@ -24,6 +24,7 @@
 		064DFBA629F7BBDD0096A554 /* 1010_다리놓기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBA529F7BBDD0096A554 /* 1010_다리놓기.swift */; };
 		064DFBBD29FB99700096A554 /* 9665_돌게임.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBBC29FB99700096A554 /* 9665_돌게임.swift */; };
 		064DFBBF29FBB21A0096A554 /* 2839_설탕배달 .swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBBE29FBB21A0096A554 /* 2839_설탕배달 .swift */; };
+		064DFBC12A0391030096A554 /* 17626_FourSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBC02A0391030096A554 /* 17626_FourSquares.swift */; };
 		06601A01294F6DF9000128C0 /* 2020 BLIND 1번.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06601A00294F6DF9000128C0 /* 2020 BLIND 1번.swift */; };
 		069947AF29CF4A0F005D15ED /* 16918_봄버맨.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069947AE29CF4A0F005D15ED /* 16918_봄버맨.swift */; };
 		069947B129CF4AB2005D15ED /* 1로만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069947B029CF4AB2005D15ED /* 1로만들기.swift */; };
@@ -115,6 +116,7 @@
 		064DFBA529F7BBDD0096A554 /* 1010_다리놓기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1010_다리놓기.swift"; sourceTree = "<group>"; };
 		064DFBBC29FB99700096A554 /* 9665_돌게임.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "9665_돌게임.swift"; sourceTree = "<group>"; };
 		064DFBBE29FBB21A0096A554 /* 2839_설탕배달 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2839_설탕배달 .swift"; sourceTree = "<group>"; };
+		064DFBC02A0391030096A554 /* 17626_FourSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 17626_FourSquares.swift; sourceTree = "<group>"; };
 		066019F8294F6DD0000128C0 /* Programmers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Programmers; sourceTree = BUILT_PRODUCTS_DIR; };
 		06601A00294F6DF9000128C0 /* 2020 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2020 BLIND 1번.swift"; sourceTree = "<group>"; };
 		069947AE29CF4A0F005D15ED /* 16918_봄버맨.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "16918_봄버맨.swift"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				064DFBA529F7BBDD0096A554 /* 1010_다리놓기.swift */,
 				064DFBBC29FB99700096A554 /* 9665_돌게임.swift */,
 				064DFBBE29FBB21A0096A554 /* 2839_설탕배달 .swift */,
+				064DFBC02A0391030096A554 /* 17626_FourSquares.swift */,
 			);
 			path = DP;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				069947B129CF4AB2005D15ED /* 1로만들기.swift in Sources */,
 				064DFBA629F7BBDD0096A554 /* 1010_다리놓기.swift in Sources */,
 				064DFBBD29FB99700096A554 /* 9665_돌게임.swift in Sources */,
+				064DFBC12A0391030096A554 /* 17626_FourSquares.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
