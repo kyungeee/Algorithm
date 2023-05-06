@@ -40,6 +40,7 @@
 		06EB47432917CCCD009804E1 /* 7569_토마토.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47422917CCCD009804E1 /* 7569_토마토.swift */; };
 		06EB47452917D24D009804E1 /* 2178_미로탐색.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47442917D24D009804E1 /* 2178_미로탐색.swift */; };
 		06EB47492917FE42009804E1 /* 16234_인구이동.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47482917FE42009804E1 /* 16234_인구이동.swift */; };
+		06FB077B2A062E2E00A695B5 /* 11726_2xN타일링.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB077A2A062E2E00A695B5 /* 11726_2xN타일링.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -139,6 +140,7 @@
 		06EB47422917CCCD009804E1 /* 7569_토마토.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "7569_토마토.swift"; sourceTree = "<group>"; };
 		06EB47442917D24D009804E1 /* 2178_미로탐색.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2178_미로탐색.swift"; sourceTree = "<group>"; };
 		06EB47482917FE42009804E1 /* 16234_인구이동.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "16234_인구이동.swift"; sourceTree = "<group>"; };
+		06FB077A2A062E2E00A695B5 /* 11726_2xN타일링.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "11726_2xN타일링.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 				064DFBC02A0391030096A554 /* 17626_FourSquares.swift */,
 				064DFBC22A0399A20096A554 /* 1463_1로만들기.swift */,
 				064DFBC42A03ABDA0096A554 /* 9095_1,2,3더하기.swift */,
+				06FB077A2A062E2E00A695B5 /* 11726_2xN타일링.swift */,
 			);
 			path = DP;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				069947B129CF4AB2005D15ED /* 1로만들기.swift in Sources */,
 				064DFBA629F7BBDD0096A554 /* 1010_다리놓기.swift in Sources */,
 				064DFBBD29FB99700096A554 /* 9665_돌게임.swift in Sources */,
+				06FB077B2A062E2E00A695B5 /* 11726_2xN타일링.swift in Sources */,
 				064DFBC12A0391030096A554 /* 17626_FourSquares.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
