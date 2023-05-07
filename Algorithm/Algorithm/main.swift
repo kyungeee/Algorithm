@@ -9,36 +9,21 @@ import Foundation
 
 let n = Int(readLine()!)!
 
-var cache = [Int](repeating: 0, count: 301)
+var dp = [Int](repeating: 0, count: n+1)
 
-var arr = [Int](repeating: 0, count: 301)
 
-for i in 1...n {
-    let input = Int(readLine()!)!
-    arr[i] = input
-}
+if n == 1 {
+    print("1")
+} else if n == 2 {
+    print("3")
+} else {
+    dp[1] = 1
+    dp[2] = 3
 
-cache[1] = arr[1]
-cache[2] = arr[1] + arr[2]
-cache[3] = max(arr[1] + arr[3] , arr[2] + arr[3])
-
-if n > 3 {
-    for i in 4...n {
-        // case1: i-1
-        var maxValue = cache[i-3] + arr[i-1]
-        
-        // case2: i-2
-        maxValue = max(maxValue, cache[i-2])
-        
-        cache[i] = maxValue + arr[i]
-        
+    for i in 3...n {
+        dp[i] = (dp[i-1] + dp[i-2] * 2 ) % 10007
     }
+
+    print(dp[n])
 }
-
-print(cache[n])
-
-
-
-
-
 
