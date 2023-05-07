@@ -7,30 +7,35 @@
 
 import Foundation
 
-// 런타임 에러뜸 왜인지는 아직 모르겠음...
-// dp[1] = 1 로 초기화 시켜주고, 밑에 for 문 바깥에 n>1 일때 라는 조건을 하나 달아주니 맞았음.
-
 let n = Int(readLine()!)!
 
-//  dp table
-var dp = Array(repeating: 0, count: n+1)
+var cache = [Int](repeating: 0, count: 301)
 
-dp[1] = 1
+var arr = [Int](repeating: 0, count: 301)
 
-// 처음 N과 가장 가까운 제곱수만 생각하면 되는 것이 아니라 모든 제곱수에 대한 경우의 수 도 다 찾아봐야함.
-if n > 1 {
-    for i in 2...n {
-        dp[i] = dp[1] + dp[i-1]
-        var j = 2
-        while j*j <= i {
-            dp[i] = min(dp[i], 1 + dp[i - j * j])
-            j += 1
-        }
+for i in 1...n {
+    let input = Int(readLine()!)!
+    arr[i] = input
+}
+
+cache[1] = arr[1]
+cache[2] = arr[1] + arr[2]
+cache[3] = max(arr[1] + arr[3] , arr[2] + arr[3])
+
+if n > 3 {
+    for i in 4...n {
+        // case1: i-1
+        var maxValue = cache[i-3] + arr[i-1]
+        
+        // case2: i-2
+        maxValue = max(maxValue, cache[i-2])
+        
+        cache[i] = maxValue + arr[i]
+        
     }
 }
 
-print(dp[n])
-
+print(cache[n])
 
 
 
