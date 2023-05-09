@@ -9,16 +9,12 @@ import Foundation
 
 let n = Int(readLine()!)!
 
-let sequence = readLine()!.split(separator: " ").map { Int(String($0))!
+var cache = readLine()!.split(separator: " ").map { Int(String($0))!
 }
 
-var cache = [Int](repeating: 1, count: n)
-
 for i in 1..<n {
-    for j in (0..<i) {
-        if sequence[j] < sequence[i] {
-            cache[i] = max(cache[i], cache[j] + 1)
-        }
+    if cache[i] < cache[i-1] + cache[i] {
+        cache[i] = cache[i] + cache[i-1]
     }
 }
 
