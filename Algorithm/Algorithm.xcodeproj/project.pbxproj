@@ -46,6 +46,7 @@
 		06FB07812A093B9B00A695B5 /* 2407_조합.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB07802A093B9B00A695B5 /* 2407_조합.swift */; };
 		06FB07832A0A229C00A695B5 /* 11053_가장긴증가하는부분수열.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB07822A0A229C00A695B5 /* 11053_가장긴증가하는부분수열.swift */; };
 		06FB07852A0A32ED00A695B5 /* 1912_연속합.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB07842A0A32ED00A695B5 /* 1912_연속합.swift */; };
+		06FB078F2A0E8BC500A695B5 /* 1059_좋은구간.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB078E2A0E8BC500A695B5 /* 1059_좋은구간.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -151,6 +152,7 @@
 		06FB07802A093B9B00A695B5 /* 2407_조합.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2407_조합.swift"; sourceTree = "<group>"; };
 		06FB07822A0A229C00A695B5 /* 11053_가장긴증가하는부분수열.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "11053_가장긴증가하는부분수열.swift"; sourceTree = "<group>"; };
 		06FB07842A0A32ED00A695B5 /* 1912_연속합.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1912_연속합.swift"; sourceTree = "<group>"; };
+		06FB078E2A0E8BC500A695B5 /* 1059_좋은구간.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1059_좋은구간.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -358,6 +360,7 @@
 				0628A1D829BF648D002A2709 /* Implementation */,
 				06365E79291CB76600CF1D3C /* DP */,
 				06227ACB293E512C00525F8A /* Divide_and_Conquer */,
+				06FB078E2A0E8BC500A695B5 /* 1059_좋은구간.swift */,
 			);
 			path = BOJ;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				06B120C229C6084100D84427 /* 11659_구간합구하기4.swift in Sources */,
 				06227ACD293E518E00525F8A /* 2447_별찍기10.swift in Sources */,
 				06B120BF29C3651300D84427 /* 11724_연결요소의개수.swift in Sources */,
+				06FB078F2A0E8BC500A695B5 /* 1059_좋은구간.swift in Sources */,
 				0628A1DC29BF64F8002A2709 /* 2667_단지번호붙이기.swift in Sources */,
 				0628A1ED29C21491002A2709 /* 14916_거스름돈.swift in Sources */,
 				06B120C529C615A100D84427 /* 14940_쉬운최단거리.swift in Sources */,
