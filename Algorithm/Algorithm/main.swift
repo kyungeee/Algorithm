@@ -8,159 +8,154 @@
 import Foundation
 
 
-let n = Int(readLine()!)!
+var bingoArr = Array(repeating: Array(repeating: 0, count: 5), count: 5)
+var callArr: [Int] = []
 
-var studentArr: [[Int]] = []
-var studentDic: [Int: [Int]] = [:]
-
-for _ in 0..<n*n {
+for i in 0..<5 {
     let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-    studentArr.append(input)
-    
-    studentDic[input[0]] = Array(input.dropFirst())
+    bingoArr[i] = input
 }
 
-var seatArr = Array(repeating: Array(repeating: 0, count: n), count: n)
-
-let dx = [1, -1, 0, 0]
-let dy = [0, 0, 1, -1]
-
-
-// 1. 비어있는 칸 중에서 좋아하는 학생이 인접한 칸에 가장 많은 칸으로 자리를 정한다.
-
-// 2. 1을 만족하는 칸이 여러 개이면, 인접한 칸 중에서 비어있는 칸이 가장 많은 칸으로 자리를 정한다.
-
-// 3. 2를 만족하는 칸도 여러 개인 경우에는 행의 번호가 가장 작은 칸으로, 그러한 칸도 여러 개이면 열의 번호가 가장 작은 칸으로 자리를 정한다.
-
-
-func selectSeat(student: Int, likeStudents: [Int]) {
-
-    var maxLike: Int = 0
-    var maxEmpty: Int = 0
-    var x: Int = 10000000
-    var y: Int = 10000000
-    
-    for i in 0..<n {
-        for j in 0..<n {
-            
-            var like = 0
-            var empty = 0
-            
-            // 이미 자리가 정해져 있는 경우 제외
-            if seatArr[i][j] != 0 {
-                continue
-            }
-            
-            // 상 하 좌 우 인접한 인덱스 탐색
-            for k in 0...3 {
-                let nx = i + dx[k]
-                let ny = j + dy[k]
-                
-                // 배열 넘어가지 않게 처리
-                if nx<0 || ny<0 || nx>=n || ny >= n {
-                    continue
-                }
-
-                // 자리가 비어있는 경우
-                if seatArr[nx][ny] == 0 {
-                    empty += 1
-                    continue
-                }
-                
-                // 좋아하는 학생이 있는 경우
-                if likeStudents.contains(seatArr[nx][ny]) {
-                    like += 1
-                }
-                
-            }
-            
-            
-            // 1번 조건: 좋아하는 학생이 제일 많은 자리 update
-            if like > maxLike {
-                x = i
-                y = j
-                maxLike = like
-                maxEmpty = empty
-            }
-            // 1번 조건 불충족시 2번 조건으로 넘어가기
-            if like == maxLike {
-                if empty > maxEmpty {
-                    x = i
-                    y = j
-                    maxLike = like
-                    maxEmpty = empty
-                    
-                }
-                 
-                // 2번 조건 불충족시 3번 조건으로 넘어가기
-                if empty == maxEmpty {
-                    // 행의 번호가 작은 인덱스로 update
-                    if i < x {
-                        x = i
-                        y = j
-                        maxLike = like
-                        maxEmpty = empty
-                    }
-                    else if i == x {
-                        // 열의 번호가 작은 인덱스로 update
-                        if j < y {
-                            x = i
-                            y = j
-                            maxLike = like
-                            maxEmpty = empty
-                        }
-                    }
-                }
-            }
-        } // for1
-    } // for2
-    
-    seatArr[x][y] = student
+for _ in 0..<5 {
+    let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
+    callArr.append(contentsOf: input)
 }
 
-func calcSatisfaction() -> Int {
-    var sum = 0
+// 왼쪽 아래에서 오른쪽 위로 가는 대각선 빙고 체크
+func isUpDiagonal() -> Int {
+    var upDiagonal: Bool = true
     
-    for i in 0..<n {
-        for j in 0..<n {
-            var num: Int = 0
-            for k in 0...3 {
-                let nx = i + dx[k]
-                let ny = j + dy[k]
-                
-                // 배열 넘어가지 않게 처리
-                if nx<0 || ny<0 || nx>=n || ny >= n {
-                    continue
-                }
-                
-                if let students = studentDic[seatArr[i][j]], students.contains(seatArr[nx][ny]) {
-                    num += 1
-                }
-            }
-            
-            switch num {
-            case 0 :
-                sum += 0
-            case 1:
-                sum += 1
-            case 2:
-                sum += 10
-            case 3:
-                sum += 100
-            default:
-                sum += 1000
-            }
-            
+    for i in 0...4 {
+        if bingoArr[i][4-i] != 0 {
+            upDiagonal = false
         }
     }
     
-    return sum
+    return upDiagonal ? 1 : 0
 }
 
-for i in studentArr {
-    selectSeat(student: i[0], likeStudents: Array(i.dropFirst()))
+// 왼쪽 위에서 오른쪽 아래로 가는 대각선 빙고 체크
+func isDownDiagonal() -> Int {
+    var downDiagonal: Bool = true
     
+    for i in 0...4 {
+        if bingoArr[i][i] != 0 {
+            downDiagonal = false
+        }
+    }
+    
+    return downDiagonal ? 1 : 0
+}
+
+// 가로직선, 세로직선 빙고 체크
+func isStraight(row: Int, col: Int) -> Int {
+    var rowStraight: Bool = true
+    var colStraight: Bool = true
+    
+    for i in 0...4 {
+        if bingoArr[row][i] != 0 {
+            rowStraight = false
+        }
+        
+        if bingoArr[i][col] != 0{
+            colStraight = false
+        }
+    }
+    
+    if rowStraight == true && colStraight == true {
+        return 2
+    } else if rowStraight == true || colStraight == true  {
+        return 1
+    } else {
+        return 0
+    }
+}
+
+var straighBingoNumber = 0
+var upDiagonalBingo: Int = 0
+var downDiagonalBingo: Int = 0
+
+
+// for 문으로 2차원 배열에서 특정 원소가 있는 인덱스를 찾는 방법
+func bingo(call: Int) -> Bool{
+    var bingo: Bool = false
+    
+    for i in 0..<5 {
+        for j in 0..<5 {
+            if bingoArr[i][j] == call {
+                bingoArr[i][j] = 0
+                
+                if upDiagonalBingo == 0 {
+                    upDiagonalBingo = isUpDiagonal()
+                }
+                
+                if downDiagonalBingo == 0 {
+                    downDiagonalBingo = isDownDiagonal()
+                }
+                
+                straighBingoNumber += isStraight(row: i, col: j)
+                
+                /// 첫번째 시도 틀렸습니다 나온 이유: 반례를 찾아보니 하나가 체크 되면서 2개의 빙고가 동시에 생겨나는 경우가 있을 수 있음.
+                /// 즉 체크를 하면서 3빙고가 아니라 4빙고가 되는경우
+                /// 따라서 straighBingoNumber + upDiagonalBingo + downDiagonalBingo == 3 가 아니라 >= 3으로 해주어야함.
+                if straighBingoNumber + upDiagonalBingo + downDiagonalBingo >= 3 {
+                    bingo = true
+                    break
+                }
+            }
+        }
+    }
+    
+    return bingo
 }
 
 
-print("\(calcSatisfaction())")
+// firstIndex와 contains 메서드를 사용하여 2차원 배열에서 특정 원소가 있는 인덱스를 찾는 방법
+func bingo2(call: Int) -> Bool {
+    var bingo: Bool = false
+    
+    if let rowIndex = bingoArr.firstIndex(where: {$0.contains(call) }),
+       let columnIndex = bingoArr[rowIndex].firstIndex(of: call) {
+        if bingoArr[rowIndex][columnIndex] == call {
+            bingoArr[rowIndex][columnIndex] = 0
+            
+            if upDiagonalBingo == 0 {
+                upDiagonalBingo = isUpDiagonal()
+            }
+            
+            if downDiagonalBingo == 0 {
+                downDiagonalBingo = isDownDiagonal()
+            }
+            
+            straighBingoNumber += isStraight(row: rowIndex, col: columnIndex)
+            
+            /// 첫번째 시도 틀렸습니다 나온 이유: 반례를 찾아보니 하나가 체크 되면서 2개의 빙고가 동시에 생겨나는 경우가 있을 수 있음.
+            /// 즉 체크를 하면서 3빙고가 아니라 4빙고가 되는경우
+            /// 따라서 straighBingoNumber + upDiagonalBingo + downDiagonalBingo == 3 가 아니라 >= 3으로 해주어야함.
+            if straighBingoNumber + upDiagonalBingo + downDiagonalBingo >= 3 {
+                bingo = true
+                return bingo
+            }
+        }
+    }
+    
+    return bingo
+}
+
+
+var number: Int = 0
+
+for i in callArr {
+    number += 1
+    let isBingo = bingo(call: i)
+    
+    if isBingo {
+        print("\(number)")
+        break
+    }
+}
+
+
+
+
+
