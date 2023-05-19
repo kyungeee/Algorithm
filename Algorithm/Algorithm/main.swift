@@ -8,154 +8,82 @@
 import Foundation
 
 
-var bingoArr = Array(repeating: Array(repeating: 0, count: 5), count: 5)
-var callArr: [Int] = []
-
-for i in 0..<5 {
-    let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-    bingoArr[i] = input
-}
-
-for _ in 0..<5 {
-    let input: [Int] = readLine()!.split(separator: " ").map { Int(String($0))! }
-    callArr.append(contentsOf: input)
-}
-
-// 왼쪽 아래에서 오른쪽 위로 가는 대각선 빙고 체크
-func isUpDiagonal() -> Int {
-    var upDiagonal: Bool = true
+func solution(_ today:String, _ terms:[String], _ privacies:[String]) -> [Int] {
     
-    for i in 0...4 {
-        if bingoArr[i][4-i] != 0 {
-            upDiagonal = false
-        }
+    // 오늘 날짜 정보 배열로 파싱
+    let todayDateArray = parsingDate(str: today)
+    
+    // 약관 정보 딕셔너리로 파싱
+    var termDic: [String: Int] = [:]
+    
+    for i in terms {
+        let arr = i.split(separator: " ").map { String($0) }
+        termDic[arr[0]] = Int(arr[1])
     }
     
-    return upDiagonal ? 1 : 0
-}
+    // 리턴할 정보 배열
+    var firedInfo: [Int] = []
+    
 
-// 왼쪽 위에서 오른쪽 아래로 가는 대각선 빙고 체크
-func isDownDiagonal() -> Int {
-    var downDiagonal: Bool = true
-    
-    for i in 0...4 {
-        if bingoArr[i][i] != 0 {
-            downDiagonal = false
-        }
-    }
-    
-    return downDiagonal ? 1 : 0
-}
-
-// 가로직선, 세로직선 빙고 체크
-func isStraight(row: Int, col: Int) -> Int {
-    var rowStraight: Bool = true
-    var colStraight: Bool = true
-    
-    for i in 0...4 {
-        if bingoArr[row][i] != 0 {
-            rowStraight = false
+    for i in 0..<privacies.count {
+        var privacy: [String] = privacies[i].split(separator: " ").map {  String($0) }
+        var dateArr: [Int] = parsingDate(str: privacy[0]) // 날짜 배열로 파싱
+        var term: String = privacy[1] // 약관 ex) "A"
+        var period = termDic[term] ?? 0 // 유효기간 ex) 6달
+        
+        // 수집된 날짜 + 유효기간
+        for _ in 0..<period {
+            dateArr[1] += 1
+            
+            if dateArr[1] == 13 {
+                dateArr[1] = 1 // 월 초기화
+                dateArr[0] += 1 // 년도 +1
+            }
         }
         
-        if bingoArr[i][col] != 0{
-            colStraight = false
+        // 날짜 비교연산은 먼저 현재 년도, 개인정보의 년도와 비교
+        // 개인정보의 년도가 현재년도보다 작다면 무조건 만료, 아니면 년도가 현재년도보다 크다면 무조건 만료아님.
+        // 현재년도와 같은 경우 -> 월, 일 계산 해야함.
+        // 먼저 월 계산 -> 현재 월보다 계약월이 더 작으면 이미 지났음으로 만료, 현재 월보다 계약월이 더 크면 보관
+        // 월이 같을 경우 -> 현재 일보다 계약일이 더 작으면 만료, 더 크다면 보관
+        
+        if dateArr[0] < todayDateArray[0] {
+            firedInfo.append(i+1)
+            continue
         }
-    }
-    
-    if rowStraight == true && colStraight == true {
-        return 2
-    } else if rowStraight == true || colStraight == true  {
-        return 1
-    } else {
-        return 0
-    }
-}
-
-var straighBingoNumber = 0
-var upDiagonalBingo: Int = 0
-var downDiagonalBingo: Int = 0
-
-
-// for 문으로 2차원 배열에서 특정 원소가 있는 인덱스를 찾는 방법
-func bingo(call: Int) -> Bool{
-    var bingo: Bool = false
-    
-    for i in 0..<5 {
-        for j in 0..<5 {
-            if bingoArr[i][j] == call {
-                bingoArr[i][j] = 0
-                
-                if upDiagonalBingo == 0 {
-                    upDiagonalBingo = isUpDiagonal()
-                }
-                
-                if downDiagonalBingo == 0 {
-                    downDiagonalBingo = isDownDiagonal()
-                }
-                
-                straighBingoNumber += isStraight(row: i, col: j)
-                
-                /// 첫번째 시도 틀렸습니다 나온 이유: 반례를 찾아보니 하나가 체크 되면서 2개의 빙고가 동시에 생겨나는 경우가 있을 수 있음.
-                /// 즉 체크를 하면서 3빙고가 아니라 4빙고가 되는경우
-                /// 따라서 straighBingoNumber + upDiagonalBingo + downDiagonalBingo == 3 가 아니라 >= 3으로 해주어야함.
-                if straighBingoNumber + upDiagonalBingo + downDiagonalBingo >= 3 {
-                    bingo = true
-                    break
+        
+        if dateArr[0] == todayDateArray[0] {
+            if dateArr[1] < todayDateArray[1] {
+                firedInfo.append(i+1)
+                continue
+            }
+            if dateArr[1] == todayDateArray[1] {
+                if dateArr[2] <= todayDateArray[2] {
+                    firedInfo.append(i+1)
+                    continue
                 }
             }
         }
     }
     
-    return bingo
+    return firedInfo
 }
 
 
-// firstIndex와 contains 메서드를 사용하여 2차원 배열에서 특정 원소가 있는 인덱스를 찾는 방법
-func bingo2(call: Int) -> Bool {
-    var bingo: Bool = false
+func parsingDate(str: String) -> [Int] {
+    var date = str.split(separator: ".").map {  String($0) }
     
-    if let rowIndex = bingoArr.firstIndex(where: {$0.contains(call) }),
-       let columnIndex = bingoArr[rowIndex].firstIndex(of: call) {
-        if bingoArr[rowIndex][columnIndex] == call {
-            bingoArr[rowIndex][columnIndex] = 0
-            
-            if upDiagonalBingo == 0 {
-                upDiagonalBingo = isUpDiagonal()
-            }
-            
-            if downDiagonalBingo == 0 {
-                downDiagonalBingo = isDownDiagonal()
-            }
-            
-            straighBingoNumber += isStraight(row: rowIndex, col: columnIndex)
-            
-            /// 첫번째 시도 틀렸습니다 나온 이유: 반례를 찾아보니 하나가 체크 되면서 2개의 빙고가 동시에 생겨나는 경우가 있을 수 있음.
-            /// 즉 체크를 하면서 3빙고가 아니라 4빙고가 되는경우
-            /// 따라서 straighBingoNumber + upDiagonalBingo + downDiagonalBingo == 3 가 아니라 >= 3으로 해주어야함.
-            if straighBingoNumber + upDiagonalBingo + downDiagonalBingo >= 3 {
-                bingo = true
-                return bingo
-            }
-        }
+    if date[1] == "0" {
+        date[1] = String(date[1].suffix(1))
     }
     
-    return bingo
-}
-
-
-var number: Int = 0
-
-for i in callArr {
-    number += 1
-    let isBingo = bingo(call: i)
-    
-    if isBingo {
-        print("\(number)")
-        break
+    if date[2] == "0" {
+        date[2] = String(date[2].suffix(1))
     }
+    
+    var dateArr = date.map { Int($0)! }
+    
+    return dateArr
 }
-
-
-
 
 
