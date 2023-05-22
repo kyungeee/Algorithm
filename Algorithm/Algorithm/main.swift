@@ -8,82 +8,121 @@
 import Foundation
 
 
-func solution(_ today:String, _ terms:[String], _ privacies:[String]) -> [Int] {
+// 그리디 알고리즘 (최적)
+// 첫번째 로직: 수거 + 배달을 함께 묶어서 한번에 돌림 -> 시간초과 (n이 최대 100,000까지므로 O(n^2) 불가능)
+func solution(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
     
-    // 오늘 날짜 정보 배열로 파싱
-    let todayDateArray = parsingDate(str: today)
+    var deliveries: [Int] = deliveries
+    var pickups: [Int] = pickups
     
-    // 약관 정보 딕셔너리로 파싱
-    var termDic: [String: Int] = [:]
+    var totalDelievry: Int = deliveries.reduce(0, +) // 총 배달해야하는 택배 수
+    var totalPickup: Int = pickups.reduce(0, +) // 총 수거해야하는 상자 수
     
-    for i in terms {
-        let arr = i.split(separator: " ").map { String($0) }
-        termDic[arr[0]] = Int(arr[1])
-    }
+    var distance: Int64 = 0 // 총 거리
     
-    // 리턴할 정보 배열
-    var firedInfo: [Int] = []
-    
-
-    for i in 0..<privacies.count {
-        var privacy: [String] = privacies[i].split(separator: " ").map {  String($0) }
-        var dateArr: [Int] = parsingDate(str: privacy[0]) // 날짜 배열로 파싱
-        var term: String = privacy[1] // 약관 ex) "A"
-        var period = termDic[term] ?? 0 // 유효기간 ex) 6달
+    // 남은 택배와 수거할 상자가 없을때까지
+    while totalDelievry != 0 && totalPickup != 0 {
         
-        // 수집된 날짜 + 유효기간
-        for _ in 0..<period {
-            dateArr[1] += 1
+        var delivery = 0
+        var pickup = 0
+        
+        var deliveryTemp = 0
+        var pickupTemp = 0
+        
+        for i in 0..<n {
             
-            if dateArr[1] == 13 {
-                dateArr[1] = 1 // 월 초기화
-                dateArr[0] += 1 // 년도 +1
-            }
-        }
-        
-        // 날짜 비교연산은 먼저 현재 년도, 개인정보의 년도와 비교
-        // 개인정보의 년도가 현재년도보다 작다면 무조건 만료, 아니면 년도가 현재년도보다 크다면 무조건 만료아님.
-        // 현재년도와 같은 경우 -> 월, 일 계산 해야함.
-        // 먼저 월 계산 -> 현재 월보다 계약월이 더 작으면 이미 지났음으로 만료, 현재 월보다 계약월이 더 크면 보관
-        // 월이 같을 경우 -> 현재 일보다 계약일이 더 작으면 만료, 더 크다면 보관
-        
-        if dateArr[0] < todayDateArray[0] {
-            firedInfo.append(i+1)
-            continue
-        }
-        
-        if dateArr[0] == todayDateArray[0] {
-            if dateArr[1] < todayDateArray[1] {
-                firedInfo.append(i+1)
-                continue
-            }
-            if dateArr[1] == todayDateArray[1] {
-                if dateArr[2] <= todayDateArray[2] {
-                    firedInfo.append(i+1)
-                    continue
+            if deliveries[i] != 0 {
+                if deliveryTemp < totalDelievry - cap {
+                    deliveryTemp += deliveries[i]
+                }
+                else {
+                    delivery += deliveries[i]
+                    deliveryTemp += deliveries[i]
+                    deliveries[i] = 0
                 }
             }
+            
+            if pickups[i] != 0 {
+                if pickupTemp < totalPickup - cap {
+                    pickupTemp += pickups[i]
+                }
+                else {
+                    pickup += pickups[i]
+                    pickupTemp += pickups[i]
+                    pickups[i] = 0
+                }
+            }
+            
+            if deliveryTemp == totalDelievry && pickupTemp == totalPickup {
+                totalDelievry -= delivery
+                totalPickup -= pickup
+                distance += Int64((i+1) * 2)
+                break
+            }
         }
     }
     
-    return firedInfo
+    return distance
+}
+
+// 두번째 로직: 배달, 수거를 각각 스택을 두어 따로 돌림
+func solution2(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
+
+    var deliveries: [Int] = deliveries // 배달 스택
+    var pickups: [Int] = pickups // 수거 스택
+    var answer: Int = 0
+    
+    // 배달스택, 수거스택이 모두 비어있을때까지
+    while !deliveries.isEmpty || !pickups.isEmpty {
+        var delivery: Int = 0
+        var pickup: Int = 0
+        
+        // 스택의 마지막 인덱스 값이 0 일 경우 pop
+        deliveries = trimZero(arr: deliveries)
+        pickups = trimZero(arr: pickups)
+               
+        answer += max(deliveries.count, pickups.count) * 2
+        
+        while !deliveries.isEmpty && delivery < cap {
+            if deliveries.last! + delivery <= cap {
+                delivery += deliveries.removeLast()
+            } else {
+                // delivery 변수에 배달 스택 pop 해서 나온 값을 더한게 cap 보다 크다면
+                // cap 만큼 채워주고 나머지는 keep
+                deliveries[deliveries.count - 1] = deliveries.last! - (cap - delivery)
+                delivery += cap - delivery
+            }
+        }
+        
+        while !pickups.isEmpty && pickup < cap {
+            if pickups.last! + pickup <= cap {
+                pickup += pickups.removeLast()
+            } else {
+                // pickup 변수에 수거 스택 pop 해서 나온 값을 더한게 cap 보다 크다면
+                // cap 만큼 채워주고 나머지는 keep
+                pickups[pickups.count - 1] = pickups.last! - (cap - pickup)
+                pickup += cap - pickup
+            }
+        }
+    }
+    
+    return Int64(answer)
 }
 
 
-func parsingDate(str: String) -> [Int] {
-    var date = str.split(separator: ".").map {  String($0) }
+func trimZero(arr: [Int]) -> [Int] {
+    var arr = arr
     
-    if date[1] == "0" {
-        date[1] = String(date[1].suffix(1))
+    while true {
+        if arr.count > 0 && arr.last == 0 {
+            arr.removeLast()
+        } else {
+            break
+        }
     }
     
-    if date[2] == "0" {
-        date[2] = String(date[2].suffix(1))
-    }
-    
-    var dateArr = date.map { Int($0)! }
-    
-    return dateArr
+    return arr
 }
 
-
+let distance = solution2(2, 7, [1, 0, 2, 0, 1, 0, 2], [0, 2, 0, 1, 0, 2, 0] )
+print(distance)
