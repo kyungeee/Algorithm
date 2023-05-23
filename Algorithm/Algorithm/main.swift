@@ -7,122 +7,158 @@
 
 import Foundation
 
+final class FileIO {
 
-// 그리디 알고리즘 (최적)
-// 첫번째 로직: 수거 + 배달을 함께 묶어서 한번에 돌림 -> 시간초과 (n이 최대 100,000까지므로 O(n^2) 불가능)
-func solution(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
+    private let buffer: [UInt8] // 입력을 byte의 배열로 바꿔서 저장
+    private var index: Int = 0 // 현재 읽어야 할 byte의 위치를 저장
+
+    // FileHandle 객체 = 파일의 데이터에 접근할 수 있게 해준다.
+    // standardInput은 표준입력에 대한 인스턴스를 만드는것
+    init(fileHandle: FileHandle = FileHandle.standardInput) {
+        self.buffer = Array(try! fileHandle.readToEnd()!) + [UInt8(0)]
+    }
+
+    // 인라인함수
+    // 함수를 사용할 때는 호출 실행이 아주 빠른 함수의 경우 호출에 걸리는 시간이 오히려 오래 걸릴 수 있다.
+    // 따라서 컴파일 할때 함수의 코드를 바로 호출할 자리에 삽입한다.
+
+    // 1byte를 읽어오는 함수
+    @inline(__always) private func read() -> UInt8 {
+        defer{ index += 1 } // 읽고나서 index 추가
+
+        return buffer[index]
+    }
+
+    // 연속된 byte값 int로 변환해서 읽어오는 함수
+    @inline(__always) func readInt() -> Int {
+        var sum = 0 // 결과 저장할 곳
+        var now = read() // 지금 index의 byte 값
+        var isPositive = true // 부호를 저장할 곳
+
+        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
+        if now == 45 { isPositive.toggle(); now = read() } // -가 나오면 음수 처리
+
+        // 0~9에 해당하는 byte
+        while now >= 48, now <= 57 {
+            sum = sum * 10 + Int(now - 48)
+            now = read()
+        }
+
+        return sum * (isPositive ? 1 : -1)
+    }
+
+    // String으로 오는 함수
+    @inline(__always) func readString() -> String {
+        var now = read()
+
+        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
+
+        // 공백이나 줄바꿈이 아니라면 그 index를 기록
+        // -1을 해주는 이유는 index 값은 앞으로 읽을 다음 byte를 가리키고 있으므로
+        let beginIndex = index - 1
+
+        // 공백(32) 혹은 줄바꿈(10) 혹은 파일의 끝(0)이 나오기 전까지 read
+        while now != 10,
+              now != 32,
+              now != 0 { now = read() }
+
+        // 공백(32) 혹은 줄바꿈(10) 혹은 파일의 끝(0)이 나와서 while문을 벗어나면
+        // 시작 index부터 문자열의 index까지 Array를 잘라서 String으로 타입 변환해서 리턴
+        return String(bytes: Array(buffer[beginIndex..<(index - 1)]), encoding: .ascii)!
+    }
+
+    // 연속된 byte값 읽어오기
+    @inline(__always) func readByteSequenceWithoutSpaceAndLineFeed() -> [UInt8] {
+        var now = read()
+
+        while now == 10 || now == 32 { now = read() }
+        let beginIndex = index-1
+
+        while now != 10,
+              now != 32,
+              now != 0 { now = read() }
+
+        return Array(buffer[beginIndex..<(index - 1)])
+    }
+}
+
+// 시간초과 - 억까 무엇 ㅡㅡ
+let switchNum = Int(readLine()!)!
+
+var switchArray = readLine()!.split(separator: " ").map { Int(String($0))! }
+
+switchArray.insert(0, at: 0)
+
+let studentNum: Int = Int(readLine()!)!
+
+var student: [[Int]] = []
+
+// 1: 남, 2: 여
+for _ in 0..<studentNum {
+    student.append(readLine()!.split(separator: " ").map { Int(String($0))!
+    })
+}
+
+func toggleSwitch() {
     
-    var deliveries: [Int] = deliveries
-    var pickups: [Int] = pickups
-    
-    var totalDelievry: Int = deliveries.reduce(0, +) // 총 배달해야하는 택배 수
-    var totalPickup: Int = pickups.reduce(0, +) // 총 수거해야하는 상자 수
-    
-    var distance: Int64 = 0 // 총 거리
-    
-    // 남은 택배와 수거할 상자가 없을때까지
-    while totalDelievry != 0 && totalPickup != 0 {
+    for i in student {
+        let gender = i[0]
+        let num = i[1]
         
-        var delivery = 0
-        var pickup = 0
-        
-        var deliveryTemp = 0
-        var pickupTemp = 0
-        
-        for i in 0..<n {
-            
-            if deliveries[i] != 0 {
-                if deliveryTemp < totalDelievry - cap {
-                    deliveryTemp += deliveries[i]
+        // 남자
+        if gender == 1 {
+            toggle(num: num)
+            var n = 2
+            while n * num < switchArray.count - 1 {
+                if switchArray[n * num] == 0 {
+                    toggle(num: n * num)
+                } else {
+                    toggle(num: n * num)
                 }
-                else {
-                    delivery += deliveries[i]
-                    deliveryTemp += deliveries[i]
-                    deliveries[i] = 0
-                }
+                n += 1
             }
-            
-            if pickups[i] != 0 {
-                if pickupTemp < totalPickup - cap {
-                    pickupTemp += pickups[i]
+        }
+        
+        // 여자
+        if gender == 2 {
+            toggle(num: num)
+            var n = 1
+            while num - n > 0 && num + n < switchArray.count - 1 {
+                if switchArray[num - n] == switchArray[num + n] {
+                    toggle(num: num - n)
+                    toggle(num: num + n)
+                    n += 1
                 }
-                else {
-                    pickup += pickups[i]
-                    pickupTemp += pickups[i]
-                    pickups[i] = 0
-                }
-            }
-            
-            if deliveryTemp == totalDelievry && pickupTemp == totalPickup {
-                totalDelievry -= delivery
-                totalPickup -= pickup
-                distance += Int64((i+1) * 2)
-                break
             }
         }
     }
-    
-    return distance
 }
 
-// 두번째 로직: 배달, 수거를 각각 스택을 두어 따로 돌림
-func solution2(_ cap:Int, _ n:Int, _ deliveries:[Int], _ pickups:[Int]) -> Int64 {
-
-    var deliveries: [Int] = deliveries // 배달 스택
-    var pickups: [Int] = pickups // 수거 스택
-    var answer: Int = 0
-    
-    // 배달스택, 수거스택이 모두 비어있을때까지
-    while !deliveries.isEmpty || !pickups.isEmpty {
-        var delivery: Int = 0
-        var pickup: Int = 0
-        
-        // 스택의 마지막 인덱스 값이 0 일 경우 pop
-        deliveries = trimZero(arr: deliveries)
-        pickups = trimZero(arr: pickups)
-               
-        answer += max(deliveries.count, pickups.count) * 2
-        
-        while !deliveries.isEmpty && delivery < cap {
-            if deliveries.last! + delivery <= cap {
-                delivery += deliveries.removeLast()
-            } else {
-                // delivery 변수에 배달 스택 pop 해서 나온 값을 더한게 cap 보다 크다면
-                // cap 만큼 채워주고 나머지는 keep
-                deliveries[deliveries.count - 1] = deliveries.last! - (cap - delivery)
-                delivery += cap - delivery
-            }
-        }
-        
-        while !pickups.isEmpty && pickup < cap {
-            if pickups.last! + pickup <= cap {
-                pickup += pickups.removeLast()
-            } else {
-                // pickup 변수에 수거 스택 pop 해서 나온 값을 더한게 cap 보다 크다면
-                // cap 만큼 채워주고 나머지는 keep
-                pickups[pickups.count - 1] = pickups.last! - (cap - pickup)
-                pickup += cap - pickup
-            }
-        }
+func toggle(num: Int) {
+    if switchArray[num] == 0 {
+        switchArray[num] = 1
+    } else {
+        switchArray[num] = 0
     }
-    
-    return Int64(answer)
 }
 
 
-func trimZero(arr: [Int]) -> [Int] {
-    var arr = arr
-    
-    while true {
-        if arr.count > 0 && arr.last == 0 {
-            arr.removeLast()
-        } else {
-            break
-        }
+toggleSwitch()
+
+
+if switchNum <= 20 {
+    for i in 1..<switchArray.count {
+        print(switchArray[i], terminator: " ")
     }
+} else {
+    for i in 1...20 {
+        print(switchArray[i], terminator: " ")
+    }
+    print("")
     
-    return arr
+    for i in 21..<switchArray.count {
+        print(switchArray[i], terminator: " ")
+    }
 }
 
-let distance = solution2(2, 7, [1, 0, 2, 0, 1, 0, 2], [0, 2, 0, 1, 0, 2, 0] )
-print(distance)
+
