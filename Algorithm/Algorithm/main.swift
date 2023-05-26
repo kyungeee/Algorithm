@@ -10,88 +10,88 @@
 import Foundation
 
 
-func solution(_ users:[[Int]], _ emoticons:[Int]) -> [Int] {
-    
-    let sale: [Int] = [10, 20, 30, 40] // 할인율
-    
-    var answer: [Int] = [] // 이모티콘 플러스 서비스 가입 수, 이모티콘 매출액
-   
-    var saledEmoticon: [[Int]] = []
+let input = String(readLine()!)
 
-    for emoticon in emoticons {
-        var arr: [Int] = []
-        for i in sale {
-            let sale = emoticon - (emoticon * i / 100)
-            arr.append(sale)
+// <main> </main> 메인 테그 없애기
+var str = String(input.dropFirst(6).dropLast(7))
+var divArr: [String] = str.components(separatedBy: "</div>")
+
+var titles: [String] = []
+var title: String = ""
+
+var contents: [[String]] = []
+
+var titleOpen: Bool = false
+
+// <div> 타이틀 빼내기
+for i in 0..<divArr.count {
+    for j in divArr[i] {
+        
+        if j == "\"" {
+            if titleOpen == false {
+                titleOpen = true
+            } else {
+                titleOpen = false
+                titles.append(title)
+                title = ""
+            }
+        } else if j == ">" {
+            divArr[i].removeFirst()
+            break
+        } else {
+            if titleOpen {
+                title += String(j)
+            }
         }
         
-        saledEmoticon.append(arr)
+        divArr[i].removeFirst()
+        
     }
     
-    let result = dfs(num: emoticons.count, arr: [], result: []) // 모든 경우의 수
-    
-    var maxMoney: Int = 0
-    var maxJoin: Int = 0
-    
-    for i in result {
-        var money: Int = 0
-        var join: Int = 0
-        
-        for user in users {
-            let userRate = user[0] // 비율
-            let userMoney = user[1] // 가격
-            
-            var totalMoney: Int = 0
-            
-            for j in 0..<emoticons.count {
-                if sale[i[j]] >= userRate {
-                    totalMoney += saledEmoticon[j][i[j]]
+    var arr = divArr[i].components(separatedBy: "</p>")
+    arr.removeLast()
+    contents.append(arr)
+
+}
+
+var tagOpen: Bool = false
+var space: Bool = false
+
+for i in 0..<contents.count-1 {
+    print("title : \(titles[i])")
+    var str = ""
+    for content in contents[i] {
+        for j in content {
+            // 1. <> 태그 빼주기 2. 공백 2개이상이면 1개로
+            if j == "<" {
+                tagOpen = true
+            } else if j == ">" {
+                tagOpen = false
+            } else {
+                if tagOpen == false {
+                    if j != " " {
+                        space = false
+                        str.append(j)
+                    } else {
+                        if space == false {
+                            space = true
+                            str.append(j)
+                        }
+                    }
                 }
             }
-            
-            if totalMoney >= userMoney {
-                join += 1
-            } else {
-                money += totalMoney
-            }
-            
         }
         
-        // 행사 목적을 최대한 달성하는 것: 서비스 가입수가 최대, 서비스가입수가 같을 경우 이모티콘 매출액이 큰 순서대로
-        if join > maxJoin {
-            maxJoin = join
-            maxMoney = money
-        } else if join == maxJoin {
-            if money > maxMoney {
-                maxMoney = money
-            }
+        if str.first == " " {
+            str.removeFirst()
         }
+        if str.last == " " {
+            str.removeLast()
+        }
+        print(str)
+        str = ""
     }
-    
-    answer = [maxJoin, maxMoney]
-   
-    return answer
 }
 
 
-func dfs(num: Int, arr: [Int], result: [[Int]]) -> [[Int]] {
-    var arr = arr
-    var result: [[Int]] = result
-    
-    if num == arr.count {
-        result.append(arr)
-        return result
-    }
-    
-    for i in 0..<4 {
-        arr.append(i)
-        result = dfs(num: num , arr: arr, result: result)
-        arr.removeLast()
-    }
-    
-    return result
-}
 
-
-let result = solution([[40, 2900], [23, 10000], [11, 5200], [5, 5900], [40, 3100], [27, 9200], [32, 6900]], [1300, 1500, 1600, 4900])
-print(result)
