@@ -10,87 +10,66 @@
 import Foundation
 
 
-let input = String(readLine()!)
-
-// <main> </main> 메인 테그 없애기
-var str = String(input.dropFirst(6).dropLast(7))
-var divArr: [String] = str.components(separatedBy: "</div>")
-
-var titles: [String] = []
-var title: String = ""
-
-var contents: [[String]] = []
-
-var titleOpen: Bool = false
-
-// <div> 타이틀 빼내기
-for i in 0..<divArr.count {
-    for j in divArr[i] {
-        
-        if j == "\"" {
-            if titleOpen == false {
-                titleOpen = true
-            } else {
-                titleOpen = false
-                titles.append(title)
-                title = ""
+/// 처음 시도 = 매 쿼리가 들어올때마다 dfs 돌림 -> 시간초과
+/// 두번째 시도 = dp 테이블을 두어 "main" 최상위 노드 부터 시작해서 딱 한번만 dfs 돌리면서 memorization  -> 성공
+func dfs(str: String) -> [String] {
+    var answer: [String] = []
+    
+    if let values = folderDic[str] {
+        for value in values {
+            // 폴더인 경우
+            if value[1] == "1" {
+                answer += dfs(str: value[0])
             }
-        } else if j == ">" {
-            divArr[i].removeFirst()
-            break
-        } else {
-            if titleOpen {
-                title += String(j)
+            // 파일인 경우
+            else {
+                answer.append(value[0])
             }
         }
-        
-        divArr[i].removeFirst()
-        
+        // 파일의 종류(중복 불허용), 파일의 개수(중복허용)
+        let type = Set(answer).count
+        let total = answer.count
+        dp[str] = [type, total]
+    } else {
+        // 빈 폴더일 경우
+        answer = []
+        dp[str] = [0, 0]
     }
     
-    var arr = divArr[i].components(separatedBy: "</p>")
-    arr.removeLast()
-    contents.append(arr)
-
+    return answer
 }
 
-var tagOpen: Bool = false
-var space: Bool = false
 
-for i in 0..<contents.count-1 {
-    print("title : \(titles[i])")
-    var str = ""
-    for content in contents[i] {
-        for j in content {
-            // 1. <> 태그 빼주기 2. 공백 2개이상이면 1개로
-            if j == "<" {
-                tagOpen = true
-            } else if j == ">" {
-                tagOpen = false
-            } else {
-                if tagOpen == false {
-                    if j != " " {
-                        space = false
-                        str.append(j)
-                    } else {
-                        if space == false {
-                            space = true
-                            str.append(j)
-                        }
-                    }
-                }
-            }
-        }
-        
-        if str.first == " " {
-            str.removeFirst()
-        }
-        if str.last == " " {
-            str.removeLast()
-        }
-        print(str)
-        str = ""
+let nm = readLine()!.split(separator: " ").map { Int(String($0))!
+}
+let n = nm[0] , m = nm[1]
+
+var folderDic: [String : [[String]]] = [:] // folder 딕셔너리
+
+for _ in 0..<n+m {
+    let input = readLine()!.components(separatedBy: " ")
+    
+    if let folder = folderDic[input[0]] {
+        folderDic[input[0]] = folder + [[input[1], input[2]]]
+    } else {
+        folderDic[input[0]] = [[input[1], input[2]]]
     }
+}
+
+var q = Int(readLine()!)! // 쿼리 개수
+
+var folder: [String] = []
+for _ in 0..<q {
+    let input = readLine()!.components(separatedBy: "/")
+    folder.append(input[input.count - 1])
+}
+
+var dp: [String: [Int]] = [:] // 폴더별 파일종류, 개수를 담은 딕셔너리
+
+dfs(str: "main")
+
+for i in folder {
+    print("\(dp[i]![0]) \(dp[i]![1])")
 }
 
 
