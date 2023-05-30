@@ -11,50 +11,47 @@ import Foundation
 
 
 
-let word = readLine()!.map { String($0) } // 단어 그대로 배열
+let input = readLine()!.split(separator: " ").map { Int(String($0))!}
 
-var dic: [String: Int] = [:]
+let height = input[0], width = input[1]
 
-let alphabet: [String] = word.sorted() // 사전 순 배열
+var arr = Array(repeating: Array(repeating: false , count: width), count: height)
 
-for i in 0..<word.count {
-    dic[alphabet[i]] = i
+let block = readLine()!.split(separator: " ").map { Int(String($0))!}
+for i in 0..<width {
+    for j in 0..<block[i] {
+        arr[j][i] = true
+    }
 }
 
+var total: Int = 0
 
-var visited: [Bool] = Array(repeating: false, count: word.count)
-
-
-func recur(l: Int, r: Int) {
-    var min = 10000, idx = -1
-
-//    print("l: \(l), r: \(r)")
-    for i in l..<r + 1 {
-        if visited[i] == false && min > dic[word[i]]! {
-            min = dic[word[i]]!
-            idx = i
-        }
-    }
-
-    if min == 10000 {
-//        print("min 값 업데이트 없음")
-        return
-    }
-
-    visited[idx] = true
-
-    for i in 0..<visited.count {
-        if visited[i] == true {
-            print(word[i], terminator: "")
-        }
-    }
-
-    print("")
-
-    recur(l: idx + 1, r: r)
-    recur(l: l, r: idx - 1)
-
+if arr[0][0] == false && arr[0][width - 1] == false {
+    print(total)
+} else {
+    solution()
+    print(total)
 }
 
-recur(l: 0, r: word.count - 1)
+func solution() {
+    for i in 0..<height {
+        var num = 0
+        var isblock = false
+        for j in 0..<width {
+            if arr[i][j] == true {
+                if isblock {
+                    total += num
+                    num = 0
+                } else {
+                    isblock = true
+                }
+            } else {
+                if isblock == true {
+                    num += 1
+                }
+            }
+        }
+    }
+}
+
 
