@@ -2,7 +2,7 @@
 //  1059_좋은구간.swift
 //  Algorithm
 //
-//  Created by 박희경 on 2023/05/12.
+//  Created by 박희경 on 2023/06/06.
 //
 
 //let l = Int(readLine()!)!
