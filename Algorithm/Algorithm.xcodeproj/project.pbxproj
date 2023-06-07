@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06136F292A3062E6002B2173 /* 20164_홀수홀릭호석.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06136F282A3062E6002B2173 /* 20164_홀수홀릭호석.swift */; };
 		061510F92929420E0046A13C /* 13023_ABCDE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061510F82929420E0046A13C /* 13023_ABCDE.swift */; };
 		061510FB292A86380046A13C /* 1699_제곱수의합.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061510FA292A86380046A13C /* 1699_제곱수의합.swift */; };
 		06227ACD293E518E00525F8A /* 2447_별찍기10.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06227ACC293E518E00525F8A /* 2447_별찍기10.swift */; };
@@ -27,12 +28,10 @@
 		064DFBC12A0391030096A554 /* 17626_FourSquares.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBC02A0391030096A554 /* 17626_FourSquares.swift */; };
 		064DFBC32A0399A20096A554 /* 1463_1로만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBC22A0399A20096A554 /* 1463_1로만들기.swift */; };
 		064DFBC52A03ABDA0096A554 /* 9095_1,2,3더하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064DFBC42A03ABDA0096A554 /* 9095_1,2,3더하기.swift */; };
-		064E775F2A1BB1DF00BA1733 /* 2023 BLIND 2번 .swift in Sources */ = {isa = PBXBuildFile; fileRef = 064E775E2A1BB1DF00BA1733 /* 2023 BLIND 2번 .swift */; };
-		06601A01294F6DF9000128C0 /* 2020 BLIND 1번.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06601A00294F6DF9000128C0 /* 2020 BLIND 1번.swift */; };
+		06705F572A30461A0087D2E2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06705F562A30461A0087D2E2 /* main.swift */; };
 		0697B93E2A150C3800F3D004 /* 21068_상어초등학교.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B93D2A150C3800F3D004 /* 21068_상어초등학교.swift */; };
 		0697B9402A15ED4E00F3D004 /* 20546_기적의매매법.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B93F2A15ED4E00F3D004 /* 20546_기적의매매법.swift */; };
 		0697B9422A17287D00F3D004 /* 2578_빙고.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B9412A17287D00F3D004 /* 2578_빙고.swift */; };
-		0697B9442A17422600F3D004 /* 2023 BLIND 1번.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B9432A17422600F3D004 /* 2023 BLIND 1번.swift */; };
 		069947AF29CF4A0F005D15ED /* 16918_봄버맨.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069947AE29CF4A0F005D15ED /* 16918_봄버맨.swift */; };
 		069947B129CF4AB2005D15ED /* 1로만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069947B029CF4AB2005D15ED /* 1로만들기.swift */; };
 		06B120BF29C3651300D84427 /* 11724_연결요소의개수.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B120BE29C3651300D84427 /* 11724_연결요소의개수.swift */; };
@@ -51,12 +50,9 @@
 		06B44E4C2A2F167C0035FE65 /* 1059_좋은구간.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B44E4B2A2F167C0035FE65 /* 1059_좋은구간.swift */; };
 		06B527EE29195E7300ACFB0D /* 1759_암호만들기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B527ED29195E7300ACFB0D /* 1759_암호만들기.swift */; };
 		06BB66222A1D09AA00C8D0B2 /* 1244_스위치 켜고 끄기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB66212A1D09AA00C8D0B2 /* 1244_스위치 켜고 끄기.swift */; };
-		06BB66242A1E2A2D00C8D0B2 /* 2023 BLIND 3번.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB66232A1E2A2D00C8D0B2 /* 2023 BLIND 3번.swift */; };
 		06BB66262A207DB900C8D0B2 /* 22859_HTML파싱.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB66252A207DB900C8D0B2 /* 22859_HTML파싱.swift */; };
 		06BB66282A20D29400C8D0B2 /* 22860_폴더정리(small).swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB66272A20D29400C8D0B2 /* 22860_폴더정리(small).swift */; };
 		06BB662A2A238F5F00C8D0B2 /* 22856_트리순회.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB66292A238F5F00C8D0B2 /* 22856_트리순회.swift */; };
-		06BB662C2A24B08600C8D0B2 /* 타입별메모리크기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BB662B2A24B08600C8D0B2 /* 타입별메모리크기.swift */; };
-		06EB47122917CA8A009804E1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47112917CA8A009804E1 /* main.swift */; };
 		06EB473F2917CC8B009804E1 /* 2583_영역구하기.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB473E2917CC8B009804E1 /* 2583_영역구하기.swift */; };
 		06EB47412917CCA2009804E1 /* 10026_적록색약.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47402917CCA2009804E1 /* 10026_적록색약.swift */; };
 		06EB47432917CCCD009804E1 /* 7569_토마토.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EB47422917CCCD009804E1 /* 7569_토마토.swift */; };
@@ -72,15 +68,6 @@
 
 /* Begin PBXCopyFilesBuildPhase section */
 		06365E76291CB76600CF1D3C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-		066019F6294F6DD0000128C0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -128,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		06136F282A3062E6002B2173 /* 20164_홀수홀릭호석.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "20164_홀수홀릭호석.swift"; sourceTree = "<group>"; };
 		061510F82929420E0046A13C /* 13023_ABCDE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 13023_ABCDE.swift; sourceTree = "<group>"; };
 		061510FA292A86380046A13C /* 1699_제곱수의합.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1699_제곱수의합.swift"; sourceTree = "<group>"; };
 		06227ACC293E518E00525F8A /* 2447_별찍기10.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2447_별찍기10.swift"; sourceTree = "<group>"; };
@@ -149,13 +137,10 @@
 		064DFBC02A0391030096A554 /* 17626_FourSquares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 17626_FourSquares.swift; sourceTree = "<group>"; };
 		064DFBC22A0399A20096A554 /* 1463_1로만들기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1463_1로만들기.swift"; sourceTree = "<group>"; };
 		064DFBC42A03ABDA0096A554 /* 9095_1,2,3더하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "9095_1,2,3더하기.swift"; sourceTree = "<group>"; };
-		064E775E2A1BB1DF00BA1733 /* 2023 BLIND 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 2번 .swift"; sourceTree = "<group>"; };
-		066019F8294F6DD0000128C0 /* Programmers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Programmers; sourceTree = BUILT_PRODUCTS_DIR; };
-		06601A00294F6DF9000128C0 /* 2020 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2020 BLIND 1번.swift"; sourceTree = "<group>"; };
+		06705F562A30461A0087D2E2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		0697B93D2A150C3800F3D004 /* 21068_상어초등학교.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "21068_상어초등학교.swift"; sourceTree = "<group>"; };
 		0697B93F2A15ED4E00F3D004 /* 20546_기적의매매법.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "20546_기적의매매법.swift"; sourceTree = "<group>"; };
 		0697B9412A17287D00F3D004 /* 2578_빙고.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2578_빙고.swift"; sourceTree = "<group>"; };
-		0697B9432A17422600F3D004 /* 2023 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 1번.swift"; sourceTree = "<group>"; };
 		069947AE29CF4A0F005D15ED /* 16918_봄버맨.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "16918_봄버맨.swift"; sourceTree = "<group>"; };
 		069947B029CF4AB2005D15ED /* 1로만들기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1로만들기.swift"; sourceTree = "<group>"; };
 		06B120BE29C3651300D84427 /* 11724_연결요소의개수.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "11724_연결요소의개수.swift"; sourceTree = "<group>"; };
@@ -175,13 +160,10 @@
 		06B527E629195DED00ACFB0D /* Backtracking */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Backtracking; sourceTree = BUILT_PRODUCTS_DIR; };
 		06B527ED29195E7300ACFB0D /* 1759_암호만들기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1759_암호만들기.swift"; sourceTree = "<group>"; };
 		06BB66212A1D09AA00C8D0B2 /* 1244_스위치 켜고 끄기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1244_스위치 켜고 끄기.swift"; sourceTree = "<group>"; };
-		06BB66232A1E2A2D00C8D0B2 /* 2023 BLIND 3번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 3번.swift"; sourceTree = "<group>"; };
 		06BB66252A207DB900C8D0B2 /* 22859_HTML파싱.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "22859_HTML파싱.swift"; sourceTree = "<group>"; };
 		06BB66272A20D29400C8D0B2 /* 22860_폴더정리(small).swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "22860_폴더정리(small).swift"; sourceTree = "<group>"; };
 		06BB66292A238F5F00C8D0B2 /* 22856_트리순회.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "22856_트리순회.swift"; sourceTree = "<group>"; };
-		06BB662B2A24B08600C8D0B2 /* 타입별메모리크기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "타입별메모리크기.swift"; sourceTree = "<group>"; };
 		06EB470E2917CA8A009804E1 /* Algorithm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Algorithm; sourceTree = BUILT_PRODUCTS_DIR; };
-		06EB47112917CA8A009804E1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		06EB471C2917CA9B009804E1 /* DFS&BFS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "DFS&BFS"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EB47272917CAAD009804E1 /* Implementation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Implementation; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EB473E2917CC8B009804E1 /* 2583_영역구하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2583_영역구하기.swift"; sourceTree = "<group>"; };
@@ -199,13 +181,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		06365E75291CB76600CF1D3C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		066019F5294F6DD0000128C0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,6 +240,7 @@
 				06B421AC2A25C87A00CAB009 /* 16719_ZOAC.swift */,
 				06B421AE2A25D48600CAB009 /* 14719_빗물 .swift */,
 				06B44E412A2EEEF60035FE65 /* 20207_달력 .swift */,
+				06136F282A3062E6002B2173 /* 20164_홀수홀릭호석.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -314,26 +290,6 @@
 			path = DP;
 			sourceTree = "<group>";
 		};
-		066019F9294F6DD0000128C0 /* Programmers */ = {
-			isa = PBXGroup;
-			children = (
-				06BB662D2A24B09900C8D0B2 /* BC */,
-				066019FF294F6DDD000128C0 /* KAKAO */,
-			);
-			path = Programmers;
-			sourceTree = "<group>";
-		};
-		066019FF294F6DDD000128C0 /* KAKAO */ = {
-			isa = PBXGroup;
-			children = (
-				06601A00294F6DF9000128C0 /* 2020 BLIND 1번.swift */,
-				0697B9432A17422600F3D004 /* 2023 BLIND 1번.swift */,
-				064E775E2A1BB1DF00BA1733 /* 2023 BLIND 2번 .swift */,
-				06BB66232A1E2A2D00C8D0B2 /* 2023 BLIND 3번.swift */,
-			);
-			path = KAKAO;
-			sourceTree = "<group>";
-		};
 		06B120C029C6083000D84427 /* PrefixSum */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,21 +327,12 @@
 			path = Backtracking;
 			sourceTree = "<group>";
 		};
-		06BB662D2A24B09900C8D0B2 /* BC */ = {
-			isa = PBXGroup;
-			children = (
-				06BB662B2A24B08600C8D0B2 /* 타입별메모리크기.swift */,
-			);
-			path = BC;
-			sourceTree = "<group>";
-		};
 		06EB47052917CA8A009804E1 = {
 			isa = PBXGroup;
 			children = (
 				06EB47102917CA8A009804E1 /* Algorithm */,
 				06EB47472917D587009804E1 /* BOJ */,
 				064DFBA329F7B3C60096A554 /* ECT */,
-				066019F9294F6DD0000128C0 /* Programmers */,
 				06EB470F2917CA8A009804E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -398,7 +345,6 @@
 				06EB47272917CAAD009804E1 /* Implementation */,
 				06B527E629195DED00ACFB0D /* Backtracking */,
 				06365E78291CB76600CF1D3C /* DP */,
-				066019F8294F6DD0000128C0 /* Programmers */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -406,7 +352,7 @@
 		06EB47102917CA8A009804E1 /* Algorithm */ = {
 			isa = PBXGroup;
 			children = (
-				06EB47112917CA8A009804E1 /* main.swift */,
+				06705F562A30461A0087D2E2 /* main.swift */,
 			);
 			path = Algorithm;
 			sourceTree = "<group>";
@@ -470,23 +416,6 @@
 			name = DP;
 			productName = DP;
 			productReference = 06365E78291CB76600CF1D3C /* DP */;
-			productType = "com.apple.product-type.tool";
-		};
-		066019F7294F6DD0000128C0 /* Programmers */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 066019FE294F6DD0000128C0 /* Build configuration list for PBXNativeTarget "Programmers" */;
-			buildPhases = (
-				066019F4294F6DD0000128C0 /* Sources */,
-				066019F5294F6DD0000128C0 /* Frameworks */,
-				066019F6294F6DD0000128C0 /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Programmers;
-			productName = Programmers;
-			productReference = 066019F8294F6DD0000128C0 /* Programmers */;
 			productType = "com.apple.product-type.tool";
 		};
 		06B527E529195DED00ACFB0D /* Backtracking */ = {
@@ -565,12 +494,9 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					06365E77291CB76600CF1D3C = {
-						CreatedOnToolsVersion = 14.1;
-					};
-					066019F7294F6DD0000128C0 = {
 						CreatedOnToolsVersion = 14.1;
 					};
 					06B527E529195DED00ACFB0D = {
@@ -589,7 +515,7 @@
 				};
 			};
 			buildConfigurationList = 06EB47092917CA8A009804E1 /* Build configuration list for PBXProject "Algorithm" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -606,7 +532,6 @@
 				06EB47262917CAAD009804E1 /* Implementation */,
 				06B527E529195DED00ACFB0D /* Backtracking */,
 				06365E77291CB76600CF1D3C /* DP */,
-				066019F7294F6DD0000128C0 /* Programmers */,
 			);
 		};
 /* End PBXProject section */
@@ -635,18 +560,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		066019F4294F6DD0000128C0 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0697B9442A17422600F3D004 /* 2023 BLIND 1번.swift in Sources */,
-				06601A01294F6DF9000128C0 /* 2020 BLIND 1번.swift in Sources */,
-				06BB66242A1E2A2D00C8D0B2 /* 2023 BLIND 3번.swift in Sources */,
-				06BB662C2A24B08600C8D0B2 /* 타입별메모리크기.swift in Sources */,
-				064E775F2A1BB1DF00BA1733 /* 2023 BLIND 2번 .swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		06B527E229195DED00ACFB0D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -666,13 +579,13 @@
 				06B44E402A2EEA7C0035FE65 /* 14712_넴모넴모.swift in Sources */,
 				0697B93E2A150C3800F3D004 /* 21068_상어초등학교.swift in Sources */,
 				06B421AD2A25C87A00CAB009 /* 16719_ZOAC.swift in Sources */,
-				06EB47122917CA8A009804E1 /* main.swift in Sources */,
 				06B120C229C6084100D84427 /* 11659_구간합구하기4.swift in Sources */,
 				06227ACD293E518E00525F8A /* 2447_별찍기10.swift in Sources */,
 				06B120BF29C3651300D84427 /* 11724_연결요소의개수.swift in Sources */,
 				06B421B12A27184B00CAB009 /* 2636_치즈.swift in Sources */,
 				0697B9402A15ED4E00F3D004 /* 20546_기적의매매법.swift in Sources */,
 				06BB66222A1D09AA00C8D0B2 /* 1244_스위치 켜고 끄기.swift in Sources */,
+				06705F572A30461A0087D2E2 /* main.swift in Sources */,
 				06BB66262A207DB900C8D0B2 /* 22859_HTML파싱.swift in Sources */,
 				06BB66282A20D29400C8D0B2 /* 22860_폴더정리(small).swift in Sources */,
 				06B421AF2A25D48600CAB009 /* 14719_빗물 .swift in Sources */,
@@ -686,6 +599,7 @@
 				06B120C529C615A100D84427 /* 14940_쉬운최단거리.swift in Sources */,
 				06B44E422A2EEEF60035FE65 /* 20207_달력 .swift in Sources */,
 				06B44E272A29BD3F0035FE65 /* 18513_샘터.swift in Sources */,
+				06136F292A3062E6002B2173 /* 20164_홀수홀릭호석.swift in Sources */,
 				06B44E4C2A2F167C0035FE65 /* 1059_좋은구간.swift in Sources */,
 				0628A1EA29C0C1FB002A2709 /* 17836_공주님을구해라!.swift in Sources */,
 			);
@@ -722,6 +636,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -731,24 +646,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		066019FC294F6DD0000128C0 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		066019FD294F6DD0000128C0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -758,6 +656,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -767,6 +666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -805,6 +705,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -865,6 +766,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -889,6 +791,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -898,6 +801,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -908,6 +812,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -924,6 +829,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -938,6 +844,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -947,6 +854,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -960,15 +868,6 @@
 			buildConfigurations = (
 				06365E7C291CB76600CF1D3C /* Debug */,
 				06365E7D291CB76600CF1D3C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		066019FE294F6DD0000128C0 /* Build configuration list for PBXNativeTarget "Programmers" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				066019FC294F6DD0000128C0 /* Debug */,
-				066019FD294F6DD0000128C0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
