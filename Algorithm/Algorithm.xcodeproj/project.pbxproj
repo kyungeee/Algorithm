@@ -138,6 +138,10 @@
 		064DFBC22A0399A20096A554 /* 1463_1로만들기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "1463_1로만들기.swift"; sourceTree = "<group>"; };
 		064DFBC42A03ABDA0096A554 /* 9095_1,2,3더하기.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "9095_1,2,3더하기.swift"; sourceTree = "<group>"; };
 		06705F562A30461A0087D2E2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		068F35942A36364700CBC0CD /* 2020 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2020 BLIND 1번.swift"; sourceTree = "<group>"; };
+		068F35952A36364700CBC0CD /* 2023 BLIND 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 2번 .swift"; sourceTree = "<group>"; };
+		068F35962A36364700CBC0CD /* 2023 BLIND 3번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 3번.swift"; sourceTree = "<group>"; };
+		068F35972A36364700CBC0CD /* 2023 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 1번.swift"; sourceTree = "<group>"; };
 		0697B93D2A150C3800F3D004 /* 21068_상어초등학교.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "21068_상어초등학교.swift"; sourceTree = "<group>"; };
 		0697B93F2A15ED4E00F3D004 /* 20546_기적의매매법.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "20546_기적의매매법.swift"; sourceTree = "<group>"; };
 		0697B9412A17287D00F3D004 /* 2578_빙고.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2578_빙고.swift"; sourceTree = "<group>"; };
@@ -290,6 +294,24 @@
 			path = DP;
 			sourceTree = "<group>";
 		};
+		068F35932A36364700CBC0CD /* KAKAO */ = {
+			isa = PBXGroup;
+			children = (
+				068F35942A36364700CBC0CD /* 2020 BLIND 1번.swift */,
+				068F35972A36364700CBC0CD /* 2023 BLIND 1번.swift */,
+				068F35952A36364700CBC0CD /* 2023 BLIND 2번 .swift */,
+				068F35962A36364700CBC0CD /* 2023 BLIND 3번.swift */,
+			);
+			path = KAKAO;
+			sourceTree = "<group>";
+		};
+		068F35982A36366500CBC0CD /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		06B120C029C6083000D84427 /* PrefixSum */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,9 +352,11 @@
 		06EB47052917CA8A009804E1 = {
 			isa = PBXGroup;
 			children = (
+				068F35982A36366500CBC0CD /* New Group */,
 				06EB47102917CA8A009804E1 /* Algorithm */,
 				06EB47472917D587009804E1 /* BOJ */,
 				064DFBA329F7B3C60096A554 /* ECT */,
+				068F35932A36364700CBC0CD /* KAKAO */,
 				06EB470F2917CA8A009804E1 /* Products */,
 			);
 			sourceTree = "<group>";
