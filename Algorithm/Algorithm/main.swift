@@ -8,51 +8,124 @@
 
 import Foundation
 
-let n = readLine()!
+let rct = readLine()!.split(separator: " ").map { Int(String($0))! }
+let r = rct[0], c = rct[1], t = rct[2]
 
-var result: [Int] = []
-func recur(str: String, count: Int) {
-    
-    if str.count == 1 {
-        if Int(str)! % 2 != 0 {
-            result.append(count + 1)
-        } else{
-            result.append(count)
+var list = Array(repeating: Array(repeating: 0, count: c), count: r)
+var nextList = Array(repeating: Array(repeating: 0, count: c), count: r)
+
+for i in 0..<r {
+    let input = readLine()!.split(separator: " ").map { Int(String($0))! }
+    list[i] = input
+}
+
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
+
+var air = [[Int]]()
+
+for i in 0..<r {
+    for j in 0..<c {
+        if list[i][j] == -1 {
+            air.append([i, j])
         }
-        return
     }
-    
-    if str.count == 2 {
-        let newNum = str.map { Int(String($0))! }.reduce(0, +)
-        recur(str: String(newNum), count: count + calc(num: Int(str)!))
-    }
-    
-    if str.count >= 3 {
-        // 3개로 나눌 수 있는 조합
-        for i in 1..<str.count  {
-            for j in i+1..<str.count {
-                let index1 = str.index(str.startIndex, offsetBy: i)
-                let index2 = str.index(str.startIndex, offsetBy: j)
-                let part1 = Int(str[..<index1])!
-                let part2 = Int(str[index1..<index2])!
-                let part3 = Int(str[index2...])!
-                
-                let newNum = part1 + part2 + part3
-                recur(str: String(newNum), count: count + calc(num: Int(str)!))
+}
+
+func spread() {
+    for i in 0..<r {
+        for j in 0..<c {
+            if list[i][j] != 0 {
+                let a = list[i][j] / 5
+                for k in 0..<4 {
+                    let nx = i + dx[k]
+                    let ny = j + dy[k]
+                    
+                    if nx < 0 || ny < 0 || nx >= r || ny >= c {
+                        continue
+                    }
+                    
+                    if list[nx][ny] != -1 {
+                        nextList[nx][ny] += a
+                        list[i][j] -= a
+                    }
+                }
+                nextList[i][j] += list[i][j]
             }
         }
-        
     }
 }
 
-func calc(num: Int) -> Int {
-    let numString = String(num)
-    let result = numString.map { Int(String($0))! }.filter { $0 % 2 != 0 }.count
+let air1X = air[0][0]
+let air1Y = air[0][1]
+let air2X = air[1][0]
+let air2Y = air[1][1]
+
+func counterClockRefresh() {
+    // 왼
+    for i in (0..<air1X-1).reversed() {
+        list[i+1][0] = list[i][0]
+    }
     
-    return result
+    // 위
+    for i in air1Y+1..<c {
+        list[0][i-1] = list[0][i]
+    }
+    
+    // 오
+    for i in 1...air1X {
+        list[i-1][c-1] = list[i][c-1]
+    }
+    
+    // 아래
+    for i in (air1Y+1..<c-1).reversed() {
+        list[air1X][i+1] = list[air1X][i]
+    }
+    
+    list[air1X][1] = 0
 }
 
-recur(str: n, count: 0)
-print("\(result.min()!) \(result.max()!)")
+
+func clockRefresh() {
+    
+    // 왼
+    for i in air2X+2..<r {
+        list[i-1][air2Y] = list[i][air2Y]
+    }
+    
+    // 아래
+    for i in air2Y+1..<c {
+        list[r-1][i-1] = list[r-1][i]
+    }
+    
+    // 오
+    for i in (air2X..<r-1).reversed() {
+        list[i+1][c-1] = list[i][c-1]
+    }
+    
+    // 위
+    for i in (air2Y+1..<c-1).reversed() {
+        list[air2X][i+1] = list[air2X][i]
+    }
+    
+    list[air2X][1] = 0
+}
+
+
+for _ in 0..<t {
+    spread()
+    nextList[air1X][air1Y] = -1
+    nextList[air2X][air2Y] = -1
+    list = nextList
+    counterClockRefresh()
+    clockRefresh()
+    
+    nextList =  Array(repeating: Array(repeating: 0, count: c), count: r)
+}
+
+
+let result = list.flatMap { $0 }.filter({ $0 > 0 }).reduce(0, +)
+print(result)
+
 
 
