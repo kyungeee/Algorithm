@@ -8,124 +8,76 @@
 
 import Foundation
 
-let rct = readLine()!.split(separator: " ").map { Int(String($0))! }
-let r = rct[0], c = rct[1], t = rct[2]
+let t = Int(readLine()!)!
+var result: [[Int]] = [] // 입력버퍼 문제 때문에 결과를 한번에 모아서 출력하기 위한 배열
 
-var list = Array(repeating: Array(repeating: 0, count: c), count: r)
-var nextList = Array(repeating: Array(repeating: 0, count: c), count: r)
-
-for i in 0..<r {
-    let input = readLine()!.split(separator: " ").map { Int(String($0))! }
-    list[i] = input
+for _ in 0..<t {
+    let str = readLine()!.map { String($0) }
+    let k = Int(readLine()!)!
+    
+//    if k == 1 {
+//        result.append([1, 1])
+//    } else {
+//        solution(str: str, k: k)
+//    }
+    
+    solution(str: str, k: k)
+    
 }
 
-let dx = [1, -1, 0, 0]
-let dy = [0, 0, 1, -1]
-
-var air = [[Int]]()
-
-for i in 0..<r {
-    for j in 0..<c {
-        if list[i][j] == -1 {
-            air.append([i, j])
-        }
+func solution(str: [String], k: Int) {
+    var dic = [String : Int]()
+    
+    for i in Set(str) {
+        dic[i] = str.filter({ $0 == i }).count
     }
-}
 
-func spread() {
-    for i in 0..<r {
-        for j in 0..<c {
-            if list[i][j] != 0 {
-                let a = list[i][j] / 5
-                for k in 0..<4 {
-                    let nx = i + dx[k]
-                    let ny = j + dy[k]
-                    
-                    if nx < 0 || ny < 0 || nx >= r || ny >= c {
-                        continue
-                    }
-                    
-                    if list[nx][ny] != -1 {
-                        nextList[nx][ny] += a
-                        list[i][j] -= a
-                    }
-                }
-                nextList[i][j] += list[i][j]
+    var minValue = 10000000000
+    var maxValue = -1
+//    var lengthArray: [Int] = []
+    
+    for i in 0..<str.count {
+        let alphabet = str[i]
+        var count = 0
+        
+        if dic[alphabet]! < k {
+            continue
+        }
+
+        for j in i..<str.count {
+            if str[j] == alphabet {
+                count += 1
+            }
+            
+            if count == k {
+                // 방법 1: min, max 값 바로 업데이트 -> 356ms 얘가 더 빠름
+                minValue = min(j-i+1, minValue)
+                maxValue = max(j-i+1, maxValue)
+                // 방법 2: 일단 array 저장 후에 나중에 min, max 값 구하기 -> 416ms 느림
+//                lengthArray.append(j-i+1)
+                break
             }
         }
     }
-}
 
-let air1X = air[0][0]
-let air1Y = air[0][1]
-let air2X = air[1][0]
-let air2Y = air[1][1]
-
-func counterClockRefresh() {
-    // 왼
-    for i in (0..<air1X-1).reversed() {
-        list[i+1][0] = list[i][0]
+    if minValue == 10000000000 || maxValue == -1 {
+        result.append([-1])
+    } else {
+        result.append([minValue, maxValue])
     }
     
-    // 위
-    for i in air1Y+1..<c {
-        list[0][i-1] = list[0][i]
-    }
-    
-    // 오
-    for i in 1...air1X {
-        list[i-1][c-1] = list[i][c-1]
-    }
-    
-    // 아래
-    for i in (air1Y+1..<c-1).reversed() {
-        list[air1X][i+1] = list[air1X][i]
-    }
-    
-    list[air1X][1] = 0
+//    if let minValue = lengthArray.min() , let maxValue = lengthArray.max() {
+//        result.append([minValue, maxValue])
+//    } else {
+//        result.append([-1])
+//    }
 }
 
 
-func clockRefresh() {
-    
-    // 왼
-    for i in air2X+2..<r {
-        list[i-1][air2Y] = list[i][air2Y]
+for i in result {
+    if i.count == 2 {
+        print("\(i[0]) \(i[1])")
+    } else {
+        print("\(i[0])")
     }
-    
-    // 아래
-    for i in air2Y+1..<c {
-        list[r-1][i-1] = list[r-1][i]
-    }
-    
-    // 오
-    for i in (air2X..<r-1).reversed() {
-        list[i+1][c-1] = list[i][c-1]
-    }
-    
-    // 위
-    for i in (air2Y+1..<c-1).reversed() {
-        list[air2X][i+1] = list[air2X][i]
-    }
-    
-    list[air2X][1] = 0
 }
-
-
-for _ in 0..<t {
-    spread()
-    nextList[air1X][air1Y] = -1
-    nextList[air2X][air2Y] = -1
-    list = nextList
-    counterClockRefresh()
-    clockRefresh()
-    
-    nextList =  Array(repeating: Array(repeating: 0, count: c), count: r)
-}
-
-
-let result = list.flatMap { $0 }.filter({ $0 > 0 }).reduce(0, +)
-print(result)
-
-
-
