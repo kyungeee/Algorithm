@@ -15,12 +15,6 @@
 //    let str = readLine()!.map { String($0) }
 //    let k = Int(readLine()!)!
 //
-////    if k == 1 {
-////        result.append([1, 1])
-////    } else {
-////        solution(str: str, k: k)
-////    }
-//
 //    solution(str: str, k: k)
 //
 //}
