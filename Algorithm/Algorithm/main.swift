@@ -8,70 +8,52 @@
 
 import Foundation
 
-let t = Int(readLine()!)!
-var result: [[Int]] = [] // 입력버퍼 문제 때문에 결과를 한번에 모아서 출력하기 위한 배열
-
-for _ in 0..<t {
-    let str = readLine()!.map { String($0) }
-    let k = Int(readLine()!)!
+func solution(_ queue1:[Int], _ queue2:[Int]) -> Int {
+    var answer = 0
+    var queue1 = queue1
+    var queue2 = queue2
     
-    solution(str: str, k: k)
+    var queue = queue1 + queue2
     
-}
-
-func solution(str: [String], k: Int) {
-    var dic = [String : Int]()
+    var sum1 = queue1.reduce(0, +)
+    var sum2 = queue2.reduce(0, +)
     
-    for i in Set(str) {
-        dic[i] = str.filter({ $0 == i }).count
+    var targetNumber = (sum1 + sum2) / 2
+    
+    var right = queue1.count
+    var left = 0
+    
+    if sum1 == sum2 {
+        return 0
+    }
+    
+    if (sum1 + sum2) % 2 != 0 {
+        return -1
     }
 
-    var minValue = 10000000000
-    var maxValue = -1
-//    var lengthArray: [Int] = []
-    
-    for i in 0..<str.count {
-        let alphabet = str[i]
-        var count = 0
+    var total = 0
+    while right < queue.count && left <= right {
         
-        if dic[alphabet]! < k {
-            continue
+        if sum1 > targetNumber {
+            sum1 -= queue[left]
+            left += 1
+        } else if sum1 < targetNumber {
+            sum1 += queue[right]
+            right += 1
+        } else {
+            break
         }
-
-        for j in i..<str.count {
-            if str[j] == alphabet {
-                count += 1
-            }
-            
-            if count == k {
-                // 방법 1: min, max 값 바로 업데이트 -> 356ms 얘가 더 빠름
-                minValue = min(j-i+1, minValue)
-                maxValue = max(j-i+1, maxValue)
-                // 방법 2: 일단 array 저장 후에 나중에 min, max 값 구하기 -> 416ms 느림
-//                lengthArray.append(j-i+1)
-                break
-            }
-        }
-    }
-
-    if minValue == 10000000000 || maxValue == -1 {
-        result.append([-1])
-    } else {
-        result.append([minValue, maxValue])
+        
+        total += 1
     }
     
-//    if let minValue = lengthArray.min() , let maxValue = lengthArray.max() {
-//        result.append([minValue, maxValue])
-//    } else {
-//        result.append([-1])
-//    }
-}
-
-
-for i in result {
-    if i.count == 2 {
-        print("\(i[0]) \(i[1])")
+    if sum1 == targetNumber {
+        answer = total
     } else {
-        print("\(i[0])")
+        answer = -1
     }
+    
+    return answer
 }
+
+
