@@ -8,52 +8,47 @@
 
 import Foundation
 
-func solution(_ queue1:[Int], _ queue2:[Int]) -> Int {
-    var answer = 0
-    var queue1 = queue1
-    var queue2 = queue2
+func solution(_ id_list:[String], _ report:[String], _ k:Int) -> [Int] {
     
-    var queue = queue1 + queue2
+    var id_Dic: [String: [String]] = [:] // 한 유저가 같은 유저를 여러번 신고한 경우 신고 횟수 1회 처리
+    var declaration: [String: Int] = [:]
     
-    var sum1 = queue1.reduce(0, +)
-    var sum2 = queue2.reduce(0, +)
-    
-    var targetNumber = (sum1 + sum2) / 2
-    
-    var right = queue1.count
-    var left = 0
-    
-    if sum1 == sum2 {
-        return 0
+    for i in id_list {
+        id_Dic[i] = []
+        declaration[i] = 0
     }
     
-    if (sum1 + sum2) % 2 != 0 {
-        return -1
+    var list: [String] = []
+    var result: [Int] = []
+    
+    for i in Set(report) {
+        let arr = i.split(separator: " ").map{ String($0) }
+        id_Dic[arr[0]]!.append(arr[1])
+        declaration[arr[1]]! += 1
     }
 
-    var total = 0
-    while right < queue.count && left <= right {
-        
-        if sum1 > targetNumber {
-            sum1 -= queue[left]
-            left += 1
-        } else if sum1 < targetNumber {
-            sum1 += queue[right]
-            right += 1
-        } else {
-            break
+    for (key, value) in declaration {
+        if value >= k {
+            list.append(key)
         }
-        
-        total += 1
     }
     
-    if sum1 == targetNumber {
-        answer = total
-    } else {
-        answer = -1
+    for i in id_list {
+        var count = 0
+        for j in list {
+            if id_Dic[i]!.contains(j) {
+                count += 1
+            }
+        }
+        result.append(count)
     }
     
-    return answer
+    return result
+    
 }
+    
 
 
+let result = solution(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2)
+
+print(result)
