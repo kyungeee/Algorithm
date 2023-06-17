@@ -8,83 +8,72 @@
 
 import Foundation
 
-
-var maxScore = -1
-var resultArr: [Int] = []
-
-func solution(_ n:Int, _ info:[Int]) -> [Int] {
-    recur(n: n, apeach: info, arr: [0,0,0,0,0,0,0,0,0,0,0], index: 0)
-    return maxScore == -1 ? [-1] : resultArr
-}
-
-func isLowerScore(arr1: [Int], arr2: [Int]) -> [Int] {
-    var index1: Int = 0
-    var index2: Int = 0
-    var result: [Int] = []
-    for i in 0..<arr1.count {
-        if arr1[i] != 0 {
-            index1 = i
-        }
-        if arr2[i] != 0 {
-            index2 = i
-        }
-    }
+var timeDic: [String: [Int]] = [:]
+var totalDic: [String: Int] = [:]
+var result: [Int] = []
+func solution(_ fees:[Int], _ records:[String]) -> [Int] {
     
-    if index1 == index2 {
-        result = arr1[index1] > arr2[index2] ? arr1 : arr2
-    } else {
-        result = index1 > index2 ? arr1 : arr2
-    }
+    calcTime(records: records)
+    calcFee(fees: fees)
     
     return result
 }
 
-func check(apeach: [Int], lion: [Int]) {
-    var apeachSum = 0
-    var lionSum = 0
-    
-    for i in 0..<apeach.count {
-        if apeach[i] < lion[i] {
-            lionSum += (10 - i)
-        }
-        else {
-            if apeach[i] != 0 || lion[i] != 0 {
-                apeachSum += (10 - i)
-            }
-        }
+func calcTime(records: [String]) {
+     for i in records {
+        let record = i.split(separator: " ").map{String($0)}
+        let minute = timeParsing(str: record[0])
+        let number = record[1]
+         
+         if let car = timeDic[number] {
+             timeDic[number]!.append(minute)
+         } else {
+             timeDic[number] = [minute]
+         }
     }
     
-    if lionSum > apeachSum {
-        if maxScore < lionSum - apeachSum {
-            maxScore = lionSum - apeachSum
-            resultArr = lion
-        } else if maxScore == lionSum - apeachSum {
-            resultArr = isLowerScore(arr1: resultArr, arr2: lion)
+    for (key, value) in timeDic {
+        if value.count % 2 != 0 {
+            timeDic[key]!.append(1439)
         }
+        
+        var total: Int = 0
+        for i in stride(from: 0, through: timeDic[key]!.count - 1, by: 2) {print(i)
+            total += timeDic[key]![i+1] - timeDic[key]![i]
+        }
+        
+        totalDic[key] = total
     }
 }
 
-// 완탐
-func recur(n: Int, apeach: [Int], arr: [Int], index: Int) {
-    var arr = arr
-    var sum = arr.reduce(0, +)
+func calcFee(fees: [Int]) {
+    let basicMinute = fees[0]
+    let basicFee = fees[1]
+    let unit = fees[2]
+    let unitFee = fees[3]
     
-    if sum == n {
-        check(apeach: apeach, lion: arr)
-        return
-    }
-    
-    if index > 10 {
-        if sum == n {
-            check(apeach: apeach, lion: arr)
-        }
-        return
-    }
-    
-    for i in 0...n {
-        arr[index] = i
-        if sum + i <= n {
-            recur(n: n, apeach: apeach, arr: arr, index: index + 1)
+    for (key, value) in totalDic {
+        if value > basicMinute {
+            let minute = ceil(Double(value - basicMinute) / Double(unit) )
+            let total = basicFee + Int(minute) * unitFee
+            totalDic[key]! = total
+        } else {
+            totalDic[key]! = basicFee
         }
     }
+    
+    let sortedKeys = totalDic.keys.sorted()
+    for key in sortedKeys {
+        result.append(totalDic[key]!)
+    }
+
 }
+
+
+func timeParsing(str: String) -> Int {
+    var strArr = str.split(separator: ":").map { String($0) }
+    var minute = Int(strArr[0])! * 60 + Int(strArr[1])!
+    return minute
+}
+
+
