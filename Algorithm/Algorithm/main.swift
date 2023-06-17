@@ -8,47 +8,83 @@
 
 import Foundation
 
-func solution(_ id_list:[String], _ report:[String], _ k:Int) -> [Int] {
-    
-    var id_Dic: [String: [String]] = [:] // 한 유저가 같은 유저를 여러번 신고한 경우 신고 횟수 1회 처리
-    var declaration: [String: Int] = [:]
-    
-    for i in id_list {
-        id_Dic[i] = []
-        declaration[i] = 0
-    }
-    
-    var list: [String] = []
-    var result: [Int] = []
-    
-    for i in Set(report) {
-        let arr = i.split(separator: " ").map{ String($0) }
-        id_Dic[arr[0]]!.append(arr[1])
-        declaration[arr[1]]! += 1
-    }
 
-    for (key, value) in declaration {
-        if value >= k {
-            list.append(key)
+var maxScore = -1
+var resultArr: [Int] = []
+
+func solution(_ n:Int, _ info:[Int]) -> [Int] {
+    recur(n: n, apeach: info, arr: [0,0,0,0,0,0,0,0,0,0,0], index: 0)
+    return maxScore == -1 ? [-1] : resultArr
+}
+
+func isLowerScore(arr1: [Int], arr2: [Int]) -> [Int] {
+    var index1: Int = 0
+    var index2: Int = 0
+    var result: [Int] = []
+    for i in 0..<arr1.count {
+        if arr1[i] != 0 {
+            index1 = i
+        }
+        if arr2[i] != 0 {
+            index2 = i
         }
     }
     
-    for i in id_list {
-        var count = 0
-        for j in list {
-            if id_Dic[i]!.contains(j) {
-                count += 1
-            }
-        }
-        result.append(count)
+    if index1 == index2 {
+        result = arr1[index1] > arr2[index2] ? arr1 : arr2
+    } else {
+        result = index1 > index2 ? arr1 : arr2
     }
     
     return result
-    
 }
+
+func check(apeach: [Int], lion: [Int]) {
+    var apeachSum = 0
+    var lionSum = 0
     
+    for i in 0..<apeach.count {
+        if apeach[i] < lion[i] {
+            lionSum += (10 - i)
+        }
+        else {
+            if apeach[i] != 0 || lion[i] != 0 {
+                apeachSum += (10 - i)
+            }
+        }
+    }
+    
+    if lionSum > apeachSum {
+        if maxScore < lionSum - apeachSum {
+            maxScore = lionSum - apeachSum
+            resultArr = lion
+        } else if maxScore == lionSum - apeachSum {
+            resultArr = isLowerScore(arr1: resultArr, arr2: lion)
+        }
+    }
+}
 
-
-let result = solution(["muzi", "frodo", "apeach", "neo"], ["muzi frodo","apeach frodo","frodo neo","muzi neo","apeach muzi"], 2)
-
-print(result)
+// 완탐
+func recur(n: Int, apeach: [Int], arr: [Int], index: Int) {
+    var arr = arr
+    var sum = arr.reduce(0, +)
+    
+    if sum == n {
+        check(apeach: apeach, lion: arr)
+        return
+    }
+    
+    if index > 10 {
+        if sum == n {
+            check(apeach: apeach, lion: arr)
+        }
+        return
+    }
+    
+    for i in 0...n {
+        arr[index] = i
+        if sum + i <= n {
+            recur(n: n, apeach: apeach, arr: arr, index: index + 1)
+        }
+    }
+}
