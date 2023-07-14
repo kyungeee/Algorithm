@@ -1,79 +1,56 @@
-//
-//  main.swift
-//  Algorithm
-//
-//  Created by 박희경 on 2022/11/06.
-//
-
-
 import Foundation
 
-var timeDic: [String: [Int]] = [:]
-var totalDic: [String: Int] = [:]
-var result: [Int] = []
-func solution(_ fees:[Int], _ records:[String]) -> [Int] {
+
+var dic: [String : Int] = [:]
+
+// 코스요리 -> 최소 2가지 이상의 단품메뉴 & 최소 2명 이상의 손님으로부터 주문된 단품메뉴 조합에 대해서만
+func solution(_ orders:[String], _ course:[Int]) -> [String] {
+    var result: [String] = [] // 사전 순으로 오름차순
     
-    calcTime(records: records)
-    calcFee(fees: fees)
+    for i in orders {
+        let comb = i.map{String($0)}.sorted()
+        for j in course {
+            if comb.count >= j {
+                recur(comb, "", 0, j)
+            }
+        }
+    }
+    
+    for i in course {
+        let sub = dic.filter{$0.key.count == i}
+        if let maxScore = Array(sub.values).max() , maxScore >= 2 {
+            for (key, value) in sub {
+                if value == maxScore {
+                    result.append(key)
+                }
+            }
+        }
+    }
+    
+    result.sort()
     
     return result
 }
 
-func calcTime(records: [String]) {
-     for i in records {
-        let record = i.split(separator: " ").map{String($0)}
-        let minute = timeParsing(str: record[0])
-        let number = record[1]
-         
-         if let car = timeDic[number] {
-             timeDic[number]!.append(minute)
-         } else {
-             timeDic[number] = [minute]
-         }
-    }
-    
-    for (key, value) in timeDic {
-        if value.count % 2 != 0 {
-            timeDic[key]!.append(1439)
-        }
-        
-        var total: Int = 0
-        for i in stride(from: 0, through: timeDic[key]!.count - 1, by: 2) {print(i)
-            total += timeDic[key]![i+1] - timeDic[key]![i]
-        }
-        
-        totalDic[key] = total
-    }
-}
 
-func calcFee(fees: [Int]) {
-    let basicMinute = fees[0]
-    let basicFee = fees[1]
-    let unit = fees[2]
-    let unitFee = fees[3]
+func recur(_ comb: [String], _ str: String, _ k: Int, _ num: Int) {
+    var str = str
     
-    for (key, value) in totalDic {
-        if value > basicMinute {
-            let minute = ceil(Double(value - basicMinute) / Double(unit) )
-            let total = basicFee + Int(minute) * unitFee
-            totalDic[key]! = total
+    if str.count == num {
+        if let value = dic[str] {
+            dic[str] = value + 1
         } else {
-            totalDic[key]! = basicFee
+            dic[str] = 1
         }
     }
     
-    let sortedKeys = totalDic.keys.sorted()
-    for key in sortedKeys {
-        result.append(totalDic[key]!)
+    for i in k..<comb.count {
+        str.append(comb[i])
+        recur(comb, str, i+1, num)
+        str.removeLast()
     }
-
 }
 
 
-func timeParsing(str: String) -> Int {
-    var strArr = str.split(separator: ":").map { String($0) }
-    var minute = Int(strArr[0])! * 60 + Int(strArr[1])!
-    return minute
-}
-
-
+let arr = solution(["XYZ", "XWY", "WXA"], [2,3,4])
+print(arr)
