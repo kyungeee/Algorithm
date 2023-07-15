@@ -41,6 +41,7 @@
 		06705F572A30461A0087D2E2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06705F562A30461A0087D2E2 /* main.swift */; };
 		067D65F32A41F2B80081DE3A /* 2022 BLIND 2번 .swift in Sources */ = {isa = PBXBuildFile; fileRef = 067D65F22A41F2B80081DE3A /* 2022 BLIND 2번 .swift */; };
 		068CDF922A6134BE0043233E /* 2021 BLIND 2번 .swift in Sources */ = {isa = PBXBuildFile; fileRef = 068CDF912A6134BE0043233E /* 2021 BLIND 2번 .swift */; };
+		068CDF942A6297BC0043233E /* 2021 INTERNSHIP 2번 .swift in Sources */ = {isa = PBXBuildFile; fileRef = 068CDF932A6297BC0043233E /* 2021 INTERNSHIP 2번 .swift */; };
 		0697B93E2A150C3800F3D004 /* 21068_상어초등학교.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B93D2A150C3800F3D004 /* 21068_상어초등학교.swift */; };
 		0697B9402A15ED4E00F3D004 /* 20546_기적의매매법.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B93F2A15ED4E00F3D004 /* 20546_기적의매매법.swift */; };
 		0697B9422A17287D00F3D004 /* 2578_빙고.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0697B9412A17287D00F3D004 /* 2578_빙고.swift */; };
@@ -165,6 +166,7 @@
 		06705F562A30461A0087D2E2 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		067D65F22A41F2B80081DE3A /* 2022 BLIND 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2022 BLIND 2번 .swift"; sourceTree = "<group>"; };
 		068CDF912A6134BE0043233E /* 2021 BLIND 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2021 BLIND 2번 .swift"; sourceTree = "<group>"; };
+		068CDF932A6297BC0043233E /* 2021 INTERNSHIP 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2021 INTERNSHIP 2번 .swift"; sourceTree = "<group>"; };
 		068F35942A36364700CBC0CD /* 2020 BLIND 1번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2020 BLIND 1번.swift"; sourceTree = "<group>"; };
 		068F35952A36364700CBC0CD /* 2023 BLIND 2번 .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 2번 .swift"; sourceTree = "<group>"; };
 		068F35962A36364700CBC0CD /* 2023 BLIND 3번.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "2023 BLIND 3번.swift"; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				0633B4A52A570A5200CCC559 /* 2019 BLIND 1번 .swift */,
 				06F36CEF2A5E9F71005778F3 /* 2021 BLIND 3번.swift */,
 				068CDF912A6134BE0043233E /* 2021 BLIND 2번 .swift */,
+				068CDF932A6297BC0043233E /* 2021 INTERNSHIP 2번 .swift */,
 			);
 			path = KAKAO;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				0697B93E2A150C3800F3D004 /* 21068_상어초등학교.swift in Sources */,
 				06B421AD2A25C87A00CAB009 /* 16719_ZOAC.swift in Sources */,
 				06B120C229C6084100D84427 /* 11659_구간합구하기4.swift in Sources */,
+				068CDF942A6297BC0043233E /* 2021 INTERNSHIP 2번 .swift in Sources */,
 				060404182A39AC480093B33D /* 2022 INTERNSHIP 1번.swift in Sources */,
 				06227ACD293E518E00525F8A /* 2447_별찍기10.swift in Sources */,
 				060404102A36E3EE0093B33D /* 21610_마법사상어와비바라기.swift in Sources */,

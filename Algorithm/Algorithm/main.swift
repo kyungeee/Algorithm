@@ -1,56 +1,70 @@
 import Foundation
 
-
-var dic: [String : Int] = [:]
-
-// 코스요리 -> 최소 2가지 이상의 단품메뉴 & 최소 2명 이상의 손님으로부터 주문된 단품메뉴 조합에 대해서만
-func solution(_ orders:[String], _ course:[Int]) -> [String] {
-    var result: [String] = [] // 사전 순으로 오름차순
+func solution(_ places:[[String]]) -> [Int] {
+    var result: [Int] = []
     
-    for i in orders {
-        let comb = i.map{String($0)}.sorted()
-        for j in course {
-            if comb.count >= j {
-                recur(comb, "", 0, j)
-            }
+    for i in places {
+        var list: [[String]] = []
+        for j in i {
+            let arr = j.map{String($0)}
+            list.append(arr)
         }
-    }
-    
-    for i in course {
-        let sub = dic.filter{$0.key.count == i}
-        if let maxScore = Array(sub.values).max() , maxScore >= 2 {
-            for (key, value) in sub {
-                if value == maxScore {
-                    result.append(key)
+        
+        var isOk: Bool = true
+        for x in 0..<5 {
+            for y in 0..<5 {
+                if list[x][y] == "P" {
+                    if !bfs(x, y, list) {
+                        isOk = false
+                    }
                 }
             }
         }
+        
+        if isOk {
+            result.append(1)
+        }else {
+            result.append(0)
+        }
     }
-    
-    result.sort()
     
     return result
 }
 
-
-func recur(_ comb: [String], _ str: String, _ k: Int, _ num: Int) {
-    var str = str
+let dx = [1, -1, 0, 0]
+let dy = [0, 0, 1, -1]
+func bfs(_ startX: Int, _ startY: Int, _ list: [[String]]) -> Bool {
+    var visited: [[Bool]] = Array(repeating: Array(repeating: false, count: 5), count: 5)
+    var queue = [[Int]]()
+    queue.append([startX, startY, 0])
     
-    if str.count == num {
-        if let value = dic[str] {
-            dic[str] = value + 1
-        } else {
-            dic[str] = 1
+    visited[startX][startY] = true
+    
+    while !queue.isEmpty {
+        let now = queue.removeFirst()
+        let x = now[0]
+        let y = now[1]
+        let dis = now[2]
+        
+        for i in 0..<4 {
+            let nx = x + dx[i]
+            let ny = y + dy[i]
+            
+            if (nx>=0 && ny>=0 && nx < 5 && ny < 5) && (list[nx][ny] != "X") {
+              if !visited[nx][ny] {
+                  
+                  if list[nx][ny] == "O" && dis + 1 < 2 {
+                      queue.append([nx, ny, dis + 1])
+                      visited[nx][ny] = true
+                  }
+                  
+                  if list[nx][ny] == "P" {
+                      return false
+                  }
+              }
+            }
         }
     }
     
-    for i in k..<comb.count {
-        str.append(comb[i])
-        recur(comb, str, i+1, num)
-        str.removeLast()
-    }
+    return true
 }
-
-
-let arr = solution(["XYZ", "XWY", "WXA"], [2,3,4])
-print(arr)
